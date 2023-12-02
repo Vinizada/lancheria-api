@@ -14,6 +14,7 @@ class CreateClientePagamentoTable extends Migration
     public function up()
     {
         Schema::create('cliente_pagamento', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('cliente_id');
             $table->unsignedBigInteger('metodo_id');
 

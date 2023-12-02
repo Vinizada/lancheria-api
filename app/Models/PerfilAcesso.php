@@ -5,22 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-
 /**
- * Class ClientePagamento
+ * Class PerfilAcesso
  * @package App\Models
- * @property integer cliente_id
- * @property integer metodo_id */
-class ClientePagamento extends Model
+ * @property integer perfil_id
+ * @property integer acesso_id */
+class PerfilAcesso extends Model
 {
     use HasFactory;
     public $timestamps = false;
     protected $primaryKey = 'id';
 
-    protected $table = 'cliente_pagamento';
+    protected $table = 'perfil_acessos';
 
     protected $fillable = [
-        'cliente_id',
-        'metodo_id',
+      'perfil_id',
+      'acesso_id',
     ];
 }

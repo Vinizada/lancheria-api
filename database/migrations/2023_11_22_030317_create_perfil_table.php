@@ -16,12 +16,9 @@ class CreatePerfilTable extends Migration
         Schema::create('perfil', function (Blueprint $table) {
             $table->id();
             $table->string('perfil', 50);
-            $table->unsignedBigInteger('acesso_id');
             $table->integer('ativo');
             $table->timestamp('data_criacao');
             $table->timestamp('data_alteracao');
-
-            $table->foreign('acesso_id')->references('id')->on('acessos');
         });
     }
 

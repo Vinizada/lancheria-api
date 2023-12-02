@@ -11,10 +11,9 @@ use Carbon\Carbon;
  * @package App\Models
  * @property integer id
  * @property string perfil
- * @property integer acesso_id
  * @property integer ativo
  * @property Carbon data_criacao
- * @property Carbon data_atualizacao */ 
+ * @property Carbon data_atualizacao */
 class Perfil extends Model
 {
     use HasFactory;
@@ -29,7 +28,6 @@ class Perfil extends Model
 
     protected $fillable = [
         'perfil',
-        'acesso_id',
         'ativo',
     ];
 
@@ -37,4 +35,9 @@ class Perfil extends Model
         'data_criacao',
         'data_alteracao',
     ];
+
+    public function acessos()
+    {
+        return $this->hasMany(Acesso::class, 'perfil_id');
+    }
 }

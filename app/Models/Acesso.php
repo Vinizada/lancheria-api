@@ -13,7 +13,7 @@ use Carbon\Carbon;
  * @property string acesso
  * @property integer ativo
  * @property Carbon data_criacao
- * @property Carbon data_atualizacao */  
+ * @property Carbon data_atualizacao */
 class Acesso extends Model
 {
     use HasFactory;
@@ -35,4 +35,9 @@ class Acesso extends Model
         'data_criacao',
         'data_alteracao',
     ];
+
+    public function perfis()
+    {
+        return $this->hasMany(Perfil::class, 'acesso_id');
+    }
 }

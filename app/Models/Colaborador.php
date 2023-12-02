@@ -16,7 +16,7 @@ use Carbon\Carbon;
  * @property string senha
  * @property integer ativo
  * @property Carbon data_criacao
- * @property Carbon data_atualizacao */  
+ * @property Carbon data_atualizacao */
 class Colaborador extends Model
 {
     use HasFactory;
@@ -46,5 +46,11 @@ class Colaborador extends Model
     {
         return $this->belongsTo(Perfil::class, 'perfil_id')
             ->where('ativo', 1);
+    }
+
+    public function acessos()
+    {
+        $pivotTable = app(PerfilAcesso::class)->getTable();
+        return $this->belongsToMany(Perfil::class, $pivotTable, 'perfil_id', 'perfil_id');
     }
 }
