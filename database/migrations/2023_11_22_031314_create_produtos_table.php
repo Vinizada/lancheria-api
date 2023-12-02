@@ -17,12 +17,14 @@ class CreateProdutosTable extends Migration
             $table->id();
             $table->string('nome');
             $table->decimal('preco', 10, 2);
-            $table->integer('fornecedor_id');
+            $table->unsignedBigInteger('fornecedor_id');
             $table->integer('estoque_minimo')->nullable();
             $table->decimal('giro_medio', 10, 2);
             $table->integer('ativo');
             $table->timestamp('data_criacao');
             $table->timestamp('data_alteracao');
+
+            $table->foreign('fornecedor_id')->references('id')->on('fornecedores');
         });
     }
 

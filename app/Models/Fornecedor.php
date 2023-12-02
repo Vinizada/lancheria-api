@@ -7,18 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
 /**
- * Class Produto
+ * Class Fornecedor
  * @package App\Models
  * @property integer id
  * @property string nome
- * @property float preco
- * @property integer fornecedor_id
- * @property integer estoque_minimo
- * @property float giro_medio
- * @property integer ativo
+ * @property string celular
+ * @property string cnpj
  * @property Carbon data_criacao
  * @property Carbon data_atualizacao */ 
-class Produto extends Model
+class Fornecedor extends Model
 {
     use HasFactory;
 
@@ -32,11 +29,9 @@ class Produto extends Model
 
     protected $fillable = [
         'nome',
-        'preco',
-        'fornecedor_id',
-        'estoque_minimo',
-        'giro_medio',
-        'ativo',
+        'email',
+        'celular',
+        'cnpj',
     ];
 
     protected $dates = [
@@ -44,13 +39,8 @@ class Produto extends Model
         'data_alteracao',
     ];
 
-    public function fornecedor()
+    public function produtos()
     {
-        $this->belongsTo(Fornecedor::class, 'fornecedor_id');
-    }
-
-    public function estoque()
-    {
-        $this->hasMany(Estoque::class, 'produto_id');
+        $this->hasMany(Produto::class, 'fornecedor_id');
     }
 }

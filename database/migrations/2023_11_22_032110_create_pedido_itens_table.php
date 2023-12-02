@@ -14,11 +14,14 @@ class CreatePedidoItensTable extends Migration
     public function up()
     {
         Schema::create('pedido_itens', function (Blueprint $table) {
-            $table->integer('pedido_id');
-            $table->integer('produto_id');
-            $table->integer('quantidade');
-            $table->decimal('preco_unitario', 10, 2);
-            $table->decimal('preco_total', 10, 2);
+            $table->unsignedBigInteger('pedido_id');
+            $table->unsignedBigInteger('produto_id');
+            $table->integer('quantidade')->default(0);
+            $table->decimal('preco_unitario', 10, 2)->default(0.0);
+            $table->decimal('preco_total', 10, 2)->default(0.0);
+
+            $table->foreign('produto_id')->references('id')->on('produtos');
+            $table->foreign('pedido_id')->references('id')->on('pedidos');
         });
     }
 
