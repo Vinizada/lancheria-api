@@ -17,12 +17,12 @@ use Carbon\Carbon;
  * @property float giro_medio
  * @property integer ativo
  * @property Carbon data_criacao
- * @property Carbon data_atualizacao */ 
+ * @property Carbon data_atualizacao */
 class Produto extends Model
 {
     use HasFactory;
 
-    protected $table = 'fornecedores';
+    protected $table = 'produtos';
 
     const CREATED_AT = 'data_criacao';
 
