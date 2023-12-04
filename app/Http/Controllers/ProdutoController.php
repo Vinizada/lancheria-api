@@ -20,6 +20,12 @@ class ProdutoController extends ModelController
         $this->produtoRepository = $produtoRepository;
         $this->modelProduto      = app(Produto::class);
     }
+
+    public function index()
+    {
+        return view('cadastroproduto');
+    }
+
     /**
      * @param Request $request
      * @return JsonResponse
@@ -34,7 +40,7 @@ class ProdutoController extends ModelController
 
         $this->produtoRepository->create($this->modelProduto, $request->all());
 
-        return response()->json(['message' => 'Produto criado com sucesso!']);
+        return $this->listar();
     }
 
     /**
@@ -47,7 +53,7 @@ class ProdutoController extends ModelController
             'nome'           => 'required|min:3|max:40',
             'preco'          => 'required|numeric',
             'estoque_minimo' => 'numeric',
-            'ativo'          => 'required|numeric',
+            'ativo'          => 'required',
         ];
 
         $feedback = [
@@ -58,7 +64,6 @@ class ProdutoController extends ModelController
             'preco.numeric'      => 'O campo preço deve ser um valor numérico!',
             'estoque_minimo'     => 'O campo de estoque precisa ser um número!',
             'ativo.required'     => 'O campo ativo é obrigatório!',
-            'ativo.numeric'      => 'O campo ativo deve ser um valor numérico!',
         ];
 
         return Validator::make($request->all(), $regras, $feedback);
@@ -69,7 +74,9 @@ class ProdutoController extends ModelController
      */
     public function listar()
     {
-        return $this->produtoRepository->getProdutos();
+        $produtos = $this->produtoRepository->getProdutos();
+
+        return view('produtos', compact('produtos'));
     }
 
     /**

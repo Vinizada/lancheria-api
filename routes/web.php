@@ -26,6 +26,11 @@ Route::get('/login/{erro?}', 'LoginController@index')->name('site.login');
  */
 
 /** Rotas Produtos */
+
+$router->get('cadastroproduto', [
+    'uses' => 'ProdutoController@index'
+])->name('produto.cadastro');
+
 $router->post('produto', [
     'uses' => 'ProdutoController@create'
 ])->name('produto.create');
