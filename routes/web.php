@@ -38,6 +38,10 @@ $router->get('produto/{produto_id}', [
     'uses' => 'ProdutoController@buscar'
 ])->name('produto.buscar');
 
+$router->get('produto/deletar/{produto_id}', [
+    'uses' => 'ProdutoController@deletar'
+])->name('produto.deletar');
+
 /** Rotas Fornecedor */
 $router->post('fornecedor', [
     'uses' => 'FornecedorController@create'
@@ -50,6 +54,10 @@ $router->get('fornecedores', [
 $router->get('fornecedor/{fornecedor_id}', [
     'uses' => 'FornecedorController@buscar'
 ])->name('fornecedor.buscar');
+
+$router->get('fornecedor/deletar/{fornecedor_id}', [
+    'uses' => 'FornecedorController@deletar'
+])->name('fornecedor.deletar');
 
 /** Rotas Cliente */
 $router->post('cliente', [
@@ -64,6 +72,10 @@ $router->get('cliente/{cliente_id}', [
     'uses' => 'ClienteController@buscar'
 ])->name('cliente.buscar');
 
+$router->get('cliente/deletar/{cliente_id}', [
+    'uses' => 'ClienteController@deletar'
+])->name('cliente.deletar');
+
 /** Rotas Estoque */
 $router->post('cadastrarestoque', [
     'uses' => 'EstoqueController@create'
@@ -76,6 +88,10 @@ $router->get('estoque', [
 $router->get('estoque/{produto_id}', [
     'uses' => 'EstoqueController@buscar'
 ])->name('estoque.buscar');
+
+$router->get('estoque/deletar/{produto_id}', [
+    'uses' => 'EstoqueController@deletar'
+])->name('estoque.deletar');
 
 
 $router->post('pedido', [

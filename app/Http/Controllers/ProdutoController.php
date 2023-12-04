@@ -76,8 +76,18 @@ class ProdutoController extends ModelController
      * @param $produtoId
      * @return mixed
      */
-    public function buscar($produtoId)
+    public function buscar($id)
     {
-        return $this->produtoRepository->buscaProduto($produtoId);
+        return $this->produtoRepository->buscaProduto($id);
+    }
+
+    public function deletar($id)
+    {
+        $this->produtoRepository->deletaProduto($id);
+    }
+
+    public function editar($id, $dados)
+    {
+        // TODO: Implement editar() method.
     }
 }

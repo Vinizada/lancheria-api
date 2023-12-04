@@ -29,4 +29,17 @@ abstract class ModelController extends Controller
      * @return mixed
      */
     public abstract function buscar($id);
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public abstract function deletar($id);
+
+    /**
+     * @param $id
+     * @param $dados
+     * @return mixed
+     */
+    public abstract function editar($id, $dados);
 }

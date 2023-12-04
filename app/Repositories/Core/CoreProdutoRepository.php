@@ -50,4 +50,18 @@ class CoreProdutoRepository extends BaseRepositoryImpl implements ProdutoReposit
             ->where('id', $produtoId)
             ->first();
     }
+
+    public function deletaProduto($produtoId)
+    {
+        return Produto::query()
+            ->where('id', $produtoId)
+            ->forceDelete();
+    }
+
+    public function updateProduto($produtoId, array $dadosAlterados)
+    {
+        return Produto::query()
+            ->where('id', $produtoId)
+            ->update($dadosAlterados);
+    }
 }

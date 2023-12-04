@@ -25,4 +25,14 @@ class EstoqueController extends ModelController
     {
         // TODO: Implement buscar() method.
     }
+
+    public function deletar($id)
+    {
+        // TODO: Implement deletar() method.
+    }
+
+    public function editar($id, $dados)
+    {
+        // TODO: Implement editar() method.
+    }
 }

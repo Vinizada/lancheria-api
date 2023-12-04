@@ -26,6 +26,19 @@ namespace App\Repositories\Contracts;
       * @return mixed
       */
      public function buscaProduto($produtoId);
+
+     /**
+      * @param $produtoId
+      * @return mixed
+      */
+     public function deletaProduto($produtoId);
+
+     /**
+      * @param $produtoId
+      * @param array $dadosAlterados
+      * @return mixed
+      */
+     public function updateProduto($produtoId, array $dadosAlterados);
  }
 
 
