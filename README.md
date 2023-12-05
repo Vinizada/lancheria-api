@@ -1,119 +1,31 @@
-# lancheria-api
-Projeto criado para gerenciar a cafeteria dos meus pais
+# Lancheria Verde Mar - Software de Gestão
 
-Esquema de tabelas (TODO criar diagrama)
+## Motivação do projeto
+Meus pais atualmente gerenciam um café de maneira manual, utilizando papel para todas as operações. Com este projeto, busco automatizar e aprimorar os processos, proporcionando-lhes uma gestão mais eficiente e simplificada.
+## Comandos Iniciais
+Aqui estão alguns comandos iniciais para começar com o projeto:
 
-tabelas:
+```bash
+composer install --ignore-platform-reqs
+php artisan migrate # Executar as migrations
+php artisan db:seed # Executar os seeders
+php artisan key:generate
+php artisan serve # Iniciar a aplicação
+cp .env.example .env # Criar arquivo de configurações de ambiente
 
-colaboradores
+```
 
-id unique
-nome
-email
-perfil_id foreign key perfil id
-senha
-ativo
-data_criacao
-data_alteracao
+## Comandos Úteis
+Aqui estão alguns comandos úteis para desenvolver o projeto:
 
-perfil
+```bash
 
-id unique
-perfil
-ativo
-acesso_id foreign key acessos id
-data_criacao
-data_alteracao
+php artisan migrate:fresh # Rodar novamente as migrations e redefinir o banco de dados
+php artisan db:seed # Povoar o banco de dados com dados de amostra
 
-acessos
+```
 
-id unique
-acesso
-data_criacao
-data_alteracao
+## Autor
+### Vinícius Lima da Silva - [LinkedIn](https://www.linkedin.com/in/vin%C3%ADcius-lima-da-silva-030403/)
 
-clientes
 
-id unique
-nome
-email
-celular
-limite_credito
-ativo
-data_criacao
-data_alteracao
-
-cliente_pagamento
-
-cliente_id foreign key clientes id
-metodo_id foreign key metodos_pagamento id
-
-metodos_pagamento
-
-id unique
-metodo
-ativo
-limite_metodo
-data_criacao
-data_alteracao
-
-fornecedores
-
-id unique
-nome
-email
-contato
-cnpj
-ativo
-cidade
-data_criacao
-data_alteracao
-
-produtos
-
-id unique
-nome
-preco
-fornecedor_id
-ativo
-estoque_minimo
-giro_medio
-data_criacao
-data_alteracao
-
-estoque
-
-produto_id
-quantidade
-data_validade
-
-movimentacoes
-
-produto_id
-pedido_id
-cliente_id
-quantidade
-preco
-data
-tipo_movimentacao (E entrada S saida)
-
-pedidos
-
-id unique
-cliente_id
-metodo_id
-valor_total
-status
-data
-colaborador_id
-cancelado
-data_cancelamento
-quantidade_itens
-
-itens_pedido
-
-pedido_id
-produto_id
-quantidade
-preco_unitario
-preco_total
