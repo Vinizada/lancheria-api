@@ -8,6 +8,7 @@ use App\Repositories\Contracts\ProdutoRepository;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\JoinClause;
 
 class CoreProdutoRepository extends BaseRepositoryImpl implements ProdutoRepository
 {
@@ -36,8 +37,18 @@ class CoreProdutoRepository extends BaseRepositoryImpl implements ProdutoReposit
     public function getProdutos()
     {
         return Produto::query()
-        ->where('ativo', 1)
-        ->get();
+            ->select('produtos.id',
+                             'produtos.nome',
+                             'produtos.preco_venda',
+                             'produtos.preco_custo',
+                             'produtos.fornecedor_id',
+                             'produtos.estoque_minimo',
+                             'produtos.ativo',
+                             'estoque.quantidade')
+            ->leftJoin('estoque', 'produtos.id', '=', 'estoque.produto_id')
+            ->where('produtos.ativo', 1)
+            ->get();
+
     }
 
     /**

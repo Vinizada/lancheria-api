@@ -16,7 +16,8 @@ class CreateProdutosTable extends Migration
         Schema::create('produtos', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
-            $table->decimal('preco', 10, 2);
+            $table->decimal('preco_venda', 10, 2);
+            $table->decimal('preco_custo', 10, 2);
             $table->unsignedBigInteger('fornecedor_id')->nullable();
             $table->integer('estoque_minimo')->nullable();
             $table->decimal('giro_medio', 10, 2)->nullable();

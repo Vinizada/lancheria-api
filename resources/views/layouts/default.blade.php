@@ -4,9 +4,11 @@
     <title>Lancheria Verde Mar - @yield('titulo')</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
 @include('layouts._partials.top')
 @yield('conteudo')
 </body>

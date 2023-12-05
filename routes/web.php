@@ -18,12 +18,14 @@ Route::get('/', function () {
     return view('login');
 });
 
-Route::post('/login', 'LoginController@autenticar')->name('site.login');
-Route::get('/login/{erro?}', 'LoginController@index')->name('site.login');
 
 /**
  * @var $router Router
  */
+
+$router->post('/login', 'LoginController@autenticar')->name('site.login');
+$router->get('/login/{erro?}', 'LoginController@index')->name('site.login');
+$router->get('/home', 'HomeController@index')->name('app.home');
 
 /** Rotas Produtos */
 
@@ -82,6 +84,10 @@ $router->get('cliente/deletar/{cliente_id}', [
 ])->name('cliente.deletar');
 
 /** Rotas Estoque */
+$router->get('cadastroestoque', [
+    'uses' => 'EstoqueController@index'
+])->name('estoque.cadastro');
+
 $router->post('cadastrarestoque', [
     'uses' => 'EstoqueController@create'
 ])->name('estoque.create');

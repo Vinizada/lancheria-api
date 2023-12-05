@@ -6,7 +6,7 @@
     <h1>Cadastro de Produto</h1>
 
     <form method="POST" action="{{ route('produto.create') }}">
-        @csrf <!-- Adiciona um token CSRF -->
+        @csrf
 
         <div>
             <label for="nome">Nome:</label>
@@ -14,8 +14,13 @@
         </div>
 
         <div>
-            <label for="preco">Preço:</label>
-            <input type="text" id="preco" name="preco" required>
+            <label for="preco_venda">Preço de Venda:</label>
+            <input type="text" id="preco_venda" name="preco_venda" required>
+        </div>
+
+        <div>
+            <label for="preco_custo">Preço de Custo:</label>
+            <input type="text" id="preco_custo" name="preco_custo" required>
         </div>
 
         <div>

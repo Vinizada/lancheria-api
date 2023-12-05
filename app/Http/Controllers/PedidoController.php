@@ -35,4 +35,9 @@ class PedidoController extends ModelController
     {
         // TODO: Implement editar() method.
     }
+
+    public function index(Request $request)
+    {
+        // TODO: Implement index() method.
+    }
 }

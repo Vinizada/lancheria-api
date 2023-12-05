@@ -8,6 +8,7 @@ use App\Repositories\Contracts\ColaboradorRepository;
 use App\Repositories\Contracts\EstoqueRepository;
 use App\Repositories\Contracts\FornecedorRepository;
 use App\Repositories\Contracts\MetodoPagamentoRepository;
+use App\Repositories\Contracts\MovimentacaoEstoqueRepository;
 use App\Repositories\Contracts\PedidoRepository;
 use App\Repositories\Contracts\PerfilAcessosRepository;
 use App\Repositories\Contracts\PerfilRepository;
@@ -18,6 +19,7 @@ use App\Repositories\Core\CoreColaboradorRepository;
 use App\Repositories\Core\CoreEstoqueRepository;
 use App\Repositories\Core\CoreFornecedorRepository;
 use App\Repositories\Core\CoreMetodoPagamentoRepository;
+use App\Repositories\Core\CoreMovimentacaoEstoqueRepository;
 use App\Repositories\Core\CorePedidoRepository;
 use App\Repositories\Core\CorePerfilAcessosRepository;
 use App\Repositories\Core\CorePerfilRepository;
@@ -43,6 +45,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ClienteRepository::class, CoreClienteRepository::class);
         $this->app->bind(PedidoRepository::class, CorePedidoRepository::class);
         $this->app->bind(FornecedorRepository::class, CoreFornecedorRepository::class);
+        $this->app->bind(MovimentacaoEstoqueRepository::class, CoreMovimentacaoEstoqueRepository::class);
     }
 
     /**

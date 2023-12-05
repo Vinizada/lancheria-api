@@ -14,10 +14,14 @@ class CreateEstoqueTable extends Migration
     public function up()
     {
         Schema::create('estoque', function (Blueprint $table) {
-            $table->unsignedBigInteger('produto_id');
+            $table->unsignedBigInteger('produto_id')->unique();
             $table->integer('quantidade');
-            $table->timestamp('data_validade');
-            
+            $table->timestamp('data_validade')->nullable();
+            $table->timestamp('data_criacao');
+            $table->timestamp('data_alteracao');
+
+            $table->primary('produto_id');
+
             $table->foreign('produto_id')->references('id')->on('produtos');
         });
     }

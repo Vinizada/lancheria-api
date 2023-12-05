@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 abstract class ModelController extends Controller
 {
+    /**
+     * @return mixed
+     */
+    public abstract function index(Request $request);
 
     /**
      * @param Request $request

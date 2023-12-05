@@ -11,7 +11,8 @@ use Carbon\Carbon;
  * @package App\Models
  * @property integer id
  * @property string nome
- * @property float preco
+ * @property float preco_venda
+ * @property float preco_custo
  * @property integer fornecedor_id
  * @property integer estoque_minimo
  * @property float giro_medio
@@ -32,7 +33,8 @@ class Produto extends Model
 
     protected $fillable = [
         'nome',
-        'preco',
+        'preco_venda',
+        'preco_custo',
         'fornecedor_id',
         'estoque_minimo',
         'giro_medio',

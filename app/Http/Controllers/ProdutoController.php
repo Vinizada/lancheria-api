@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Produto;
 use App\Repositories\Contracts\ProdutoRepository;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -21,7 +24,11 @@ class ProdutoController extends ModelController
         $this->modelProduto      = app(Produto::class);
     }
 
-    public function index()
+    /**
+     * @param Request $request
+     * @return Application|Factory|View|mixed
+     */
+    public function index(Request $request)
     {
         return view('cadastroproduto');
     }
@@ -51,19 +58,22 @@ class ProdutoController extends ModelController
     {
         $regras = [
             'nome'           => 'required|min:3|max:40',
-            'preco'          => 'required|numeric',
+            'preco_venda'    => 'required|numeric',
+            'preco_custo'    => 'required|numeric',
             'estoque_minimo' => 'numeric',
             'ativo'          => 'required',
         ];
 
         $feedback = [
-            'nome.required'      => 'O campo nome é obrigatório!',
-            'nome.min'           => 'O campo nome deve ter no mínimo 3 caracteres!',
-            'nome.max'           => 'O campo nome deve ter no máximo 40 caracteres!',
-            'preco.required'     => 'O campo preço é obrigatório!',
-            'preco.numeric'      => 'O campo preço deve ser um valor numérico!',
-            'estoque_minimo'     => 'O campo de estoque precisa ser um número!',
-            'ativo.required'     => 'O campo ativo é obrigatório!',
+            'nome.required'        => 'O campo nome é obrigatório!',
+            'nome.min'             => 'O campo nome deve ter no mínimo 3 caracteres!',
+            'nome.max'             => 'O campo nome deve ter no máximo 40 caracteres!',
+            'preco_venda.required' => 'O campo preço de venda é obrigatório!',
+            'preco_venda.numeric'  => 'O campo preço de venda deve ser um valor numérico!',
+            'preco_custo.required' => 'O campo preço de custo é obrigatório!',
+            'preco_custo.numeric'  => 'O campo preço de custo deve ser um valor numérico!',
+            'estoque_minimo'       => 'O campo de estoque precisa ser um número!',
+            'ativo.required'       => 'O campo ativo é obrigatório!',
         ];
 
         return Validator::make($request->all(), $regras, $feedback);

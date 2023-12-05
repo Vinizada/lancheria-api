@@ -3,10 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Colaborador;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return Application|Factory|View
+     */
     public function index(Request $request)
     {
         $erro = '';
@@ -22,6 +30,10 @@ class LoginController extends Controller
         return view('site.login', ['titulo' => 'Login', 'erro' => $erro]);
     }
 
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
     public function autenticar(Request $request)
     {
         $regras = [
@@ -47,9 +59,7 @@ class LoginController extends Controller
 
         if(isset($colaborador->nome)) {
 
-            session_start();
-            $_SESSION['nome'] = $colaborador->nome;
-            $_SESSION['email'] = $colaborador->email;
+            session(['colaborador' => $colaborador]);
 
             return redirect()->route('app.home');
         } else {
@@ -57,6 +67,9 @@ class LoginController extends Controller
         }
     }
 
+    /**
+     * @return RedirectResponse
+     */
     public function sair()
     {
         session_destroy();
