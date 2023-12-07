@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Constants\TipoMovimentacao;
+use App\Helpers\Utils;
 use App\Models\Colaborador;
 use App\Models\Produto;
 use App\Repositories\Contracts\EstoqueRepository;
@@ -42,9 +43,10 @@ class EstoqueController extends ModelController
     public function index(Request $request)
     {
         $produtos = $this->produtoRepository->getProdutos();
+        $nomeUsuario = app(Utils::class)->retornaNomeColaborador();
         $produtoSelecionado = $request->input('id');
 
-        return view('estoque', compact('produtos', 'produtoSelecionado'));
+        return view('estoque', compact('produtos', 'produtoSelecionado', 'nomeUsuario'));
     }
 
     /**

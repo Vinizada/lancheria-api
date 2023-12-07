@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Utils;
 use App\Models\Colaborador;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -14,9 +15,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        /** @var Colaborador $colaborador */
-        $colaborador = session('colaborador');
-        $nomeUsuario = $colaborador->nome;
+        $nomeUsuario = app(Utils::class)->retornaNomeColaborador();
         return view('home', compact('nomeUsuario'));
     }
 }

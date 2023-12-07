@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Utils;
 use App\Models\Produto;
 use App\Repositories\Contracts\ProdutoRepository;
 use Illuminate\Contracts\Foundation\Application;
@@ -30,7 +31,8 @@ class ProdutoController extends ModelController
      */
     public function index(Request $request)
     {
-        return view('cadastroproduto');
+        $nomeUsuario = app(Utils::class)->retornaNomeColaborador();
+        return view('cadastroproduto', compact('nomeUsuario'));
     }
 
     /**
@@ -85,8 +87,9 @@ class ProdutoController extends ModelController
     public function listar()
     {
         $produtos = $this->produtoRepository->getProdutos();
+        $nomeUsuario = app(Utils::class)->retornaNomeColaborador();
 
-        return view('produtos', compact('produtos'));
+        return view('produtos', compact('produtos', 'nomeUsuario'));
     }
 
     /**

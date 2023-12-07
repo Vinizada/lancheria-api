@@ -1,12 +1,8 @@
 @extends('layouts.default')
 
-@section('titulo', 'Teste')
+@section('titulo', 'Home')
 
 @section('conteudo')
-    <br>
-    <div style="text-align: right;">
-        <p><strong>Bem-vindo, {{ $nomeUsuario }}</strong></p>
-    </div>
     <div style="text-align: center; margin-top: 50px;">
         <a href="{{ route('produto.listar') }}" style="text-decoration: none;">
             <button style="margin-bottom: 10px;">Cadastro de Produtos</button>

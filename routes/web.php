@@ -26,6 +26,7 @@ Route::get('/', function () {
 $router->post('/login', 'LoginController@autenticar')->name('site.login');
 $router->get('/login/{erro?}', 'LoginController@index')->name('site.login');
 $router->get('/home', 'HomeController@index')->name('app.home');
+$router->get('/sair', 'LoginController@sair')->name('app.sair');
 
 /** Rotas Produtos */
 
