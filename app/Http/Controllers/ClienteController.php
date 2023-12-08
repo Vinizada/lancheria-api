@@ -16,7 +16,7 @@ class ClienteController extends ModelController
         // TODO: Implement validateRequest() method.
     }
 
-    public function listar()
+    public function listar(Request $request)
     {
         // TODO: Implement listar() method.
     }

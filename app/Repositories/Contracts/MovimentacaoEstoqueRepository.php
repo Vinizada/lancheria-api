@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Contracts;
 
+use App\Constants\TipoMovimentacao;
 use App\Models\Produto;
 
  interface MovimentacaoEstoqueRepository extends BaseRepository
@@ -20,9 +21,10 @@ use App\Models\Produto;
 
      /**
       * @param Produto $produto
+      * @param $movimentacao
       * @return mixed
       */
-     public function buscaMovimentacoesProduto(Produto $produto);
+     public function buscaMovimentacoesProduto(Produto $produto, $movimentacao);
  }
 
 

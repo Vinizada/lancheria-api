@@ -42,7 +42,7 @@
                 <h3 class="font-weight-bold mb-1">Ações Rápidas</h3>
                 <br>
                 <a href="{{ route('produto.listar') }}" class="btn btn-primary btn-lg btn-block mb-2">Cadastro de Produtos</a>
-                <a href="{{ route('estoque.cadastro') }}" class="btn btn-primary btn-lg btn-block mb-2">Cadastrar Estoque</a>
+                <a href="{{ route('estoque.cadastro') }}" class="btn btn-primary btn-lg btn-block mb-2">Cadastrar Compra</a>
             </div>
         </div>
     </div>

@@ -37,7 +37,7 @@
             <div class="form-group text-center">
                 <div class="row">
                     <div class="col-md-6">
-                        <a href="{{ route('produto.listar') }}" class="btn btn-danger btn-block">Voltar</a>
+                        <a href="{{ route('estoque.listar', ['id' => $produto->id]) }}" class="btn btn-danger btn-block">Voltar</a>
                     </div>
                     <div class="col-md-6 mb-2 mb-md-0">
                         <button type="submit" class="btn btn-primary btn-block">Salvar</button>

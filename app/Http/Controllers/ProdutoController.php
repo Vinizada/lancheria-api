@@ -77,9 +77,10 @@ class ProdutoController extends ModelController
     }
 
     /**
+     * @param Request $request
      * @return mixed
      */
-    public function listar()
+    public function listar(Request $request)
     {
         $produtos = $this->produtoRepository->getProdutos();
         $nomeUsuario = app(Utils::class)->retornaNomeColaborador();

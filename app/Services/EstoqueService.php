@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Constants\TipoMovimentacao;
 use App\Events\CadastroCompra;
 use App\Models\MovimentacaoEstoque;
 use App\Models\Produto;
@@ -27,17 +28,11 @@ class EstoqueService
     public function atualizaEstoque(Produto $produto)
     {
         try {
-            $movimentacoes = $this->buscaMovimentacoes($produto);
+            $entradas = $this->buscaMovimentacoes($produto, TipoMovimentacao::ENTRADA);
+            $saidas = $this->buscaMovimentacoes($produto, TipoMovimentacao::SAIDA);
 
-            $entradas = $movimentacoes->filter(function (MovimentacaoEstoque $movimentacao) {
-                return $movimentacao->isEntrada();
-            })->sum('quantidade');
 
-            $saidas = $movimentacoes->filter(function (MovimentacaoEstoque $movimentacao) {
-                return $movimentacao->isSaida();
-            })->sum('quantidade');
-
-            $estoqueAtual = $entradas - $saidas;
+            $estoqueAtual = $entradas->sum('quantidade') - $saidas->sum('quantidade');
             $valorAtual   = $estoqueAtual * $produto->preco_venda;
 
             $dadosAlterados = [
@@ -52,12 +47,18 @@ class EstoqueService
         }
     }
 
+    public function getMovimentacoesProduto(Produto $produto)
+    {
+        return $this->movimentacaoEstoqueRepository->buscaMovimentacoesProduto($produto, TipoMovimentacao::ENTRADA);
+    }
+
     /**
      * @param Produto $produto
+     * @param $tipoMovimentacao
      * @return mixed
      */
-    private function buscaMovimentacoes(Produto $produto)
+    private function buscaMovimentacoes(Produto $produto, $tipoMovimentacao)
     {
-        return $this->movimentacaoEstoqueRepository->buscaMovimentacoesProduto($produto);
+        return $this->movimentacaoEstoqueRepository->buscaMovimentacoesProduto($produto, $tipoMovimentacao);
     }
 }

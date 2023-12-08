@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Core;
 
+use App\Constants\TipoMovimentacao;
 use App\Models\MovimentacaoEstoque;
 use App\Models\Produto;
 use App\Repositories\Contracts\BaseRepositoryImpl;
@@ -30,14 +31,17 @@ class CoreMovimentacaoEstoqueRepository extends BaseRepositoryImpl implements Mo
         return $model->newQuery()->count();
     }
 
+
     /**
      * @param Produto $produto
+     * @param $movimentacao
      * @return Builder[]|Collection|mixed
      */
-    public function buscaMovimentacoesProduto(Produto $produto)
+    public function buscaMovimentacoesProduto(Produto $produto, $movimentacao)
     {
         return MovimentacaoEstoque::query()
             ->where('produto_id', $produto->id)
+            ->where('tipo_movimentacao', $movimentacao)
             ->get();
     }
 }

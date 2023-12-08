@@ -26,7 +26,7 @@ abstract class ModelController extends Controller
     /**
      * @return mixed
      */
-    public abstract function listar();
+    public abstract function listar(Request $request);
 
     /**
      * @param $id

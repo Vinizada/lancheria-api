@@ -43,7 +43,7 @@
                                         </p>
                                     </div>
                                     <div class="mt-2 text-center">
-                                        <a style="width:75%" href="{{ route('estoque.cadastro', ['id' => $produto->id]) }}" class="btn btn-info">
+                                        <a style="width:75%" href="{{ route('estoque.listar', ['id' => $produto->id]) }}" class="btn btn-info">
                                             <i class="fas fa-box"></i> Compras
                                         </a>
                                     </div>

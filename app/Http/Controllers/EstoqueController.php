@@ -96,9 +96,14 @@ class EstoqueController extends ModelController
         return Validator::make($request->all(), $regras, $feedback);
     }
 
-    public function listar()
+    public function listar(Request $request)
     {
-        // TODO: Implement listar() method.
+        /** @var Produto $produto */
+        $produto     = $this->produtoRepository->buscaProduto($request->input('id'));
+        $nomeUsuario = app(Utils::class)->retornaNomeColaborador();
+        $compras     = $this->estoqueService->getMovimentacoesProduto($produto);
+
+        return view('compras', compact('produto', 'compras', 'nomeUsuario'));
     }
 
     public function buscar($id)
