@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Core;
 
+use App\Events\CadastroCompra;
 use App\Models\Colaborador;
 use App\Models\Estoque;
 use App\Models\MovimentacaoEstoque;

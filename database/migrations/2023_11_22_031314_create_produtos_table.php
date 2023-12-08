@@ -18,6 +18,7 @@ class CreateProdutosTable extends Migration
             $table->string('nome');
             $table->decimal('preco_venda', 10, 2);
             $table->decimal('preco_custo', 10, 2)->nullable();
+            $table->decimal('preco_medio', 10, 2)->nullable();
             $table->unsignedBigInteger('fornecedor_id')->nullable();
             $table->integer('estoque_minimo')->nullable();
             $table->decimal('giro_medio', 10, 2)->nullable();

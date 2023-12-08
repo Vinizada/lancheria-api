@@ -42,6 +42,8 @@ class EstoqueService
 
             $this->estoqueRepository->updateEstoque($produto->id, $dadosAlterados);
 
+            event(new CadastroCompra());
+
         } catch (\Exception $exception) {
             throw new Exception('Falha ao atualizar estoque!' . $exception->getMessage());
         }

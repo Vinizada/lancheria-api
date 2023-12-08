@@ -16,7 +16,7 @@ class FornecedorController extends ModelController
         // TODO: Implement validateRequest() method.
     }
 
-    public function listar(Request $request)
+    public function listar()
     {
         // TODO: Implement listar() method.
     }
@@ -31,7 +31,7 @@ class FornecedorController extends ModelController
         // TODO: Implement deletar() method.
     }
 
-    public function editar($id, $dados)
+    public function editar(Request $request)
     {
         // TODO: Implement editar() method.
     }

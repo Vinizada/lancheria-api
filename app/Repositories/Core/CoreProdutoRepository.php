@@ -41,6 +41,7 @@ class CoreProdutoRepository extends BaseRepositoryImpl implements ProdutoReposit
                              'produtos.nome',
                              'produtos.preco_venda',
                              'produtos.preco_custo',
+                             'produtos.preco_medio',
                              'produtos.fornecedor_id',
                              'produtos.estoque_minimo',
                              'produtos.ativo',
@@ -48,7 +49,6 @@ class CoreProdutoRepository extends BaseRepositoryImpl implements ProdutoReposit
                              'estoque.valor_estoque_atual')
             ->leftJoin('estoque', 'produtos.id', '=', 'estoque.produto_id')
             ->get();
-
     }
 
     /**

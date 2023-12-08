@@ -9,6 +9,7 @@ use App\Repositories\Contracts\BaseRepositoryImpl;
 use App\Repositories\Contracts\MovimentacaoEstoqueRepository;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 class CoreMovimentacaoEstoqueRepository extends BaseRepositoryImpl implements MovimentacaoEstoqueRepository
 {
@@ -43,5 +44,22 @@ class CoreMovimentacaoEstoqueRepository extends BaseRepositoryImpl implements Mo
             ->where('produto_id', $produto->id)
             ->where('tipo_movimentacao', $movimentacao)
             ->get();
+    }
+
+    /**
+     * @param Produto $produto
+     * @param $movimentacao
+     * @return MovimentacaoEstoque
+     */
+    public function buscaUltimaMovimentacaoProduto(Produto $produto, $movimentacao)
+    {
+        /** @var MovimentacaoEstoque $ultimaMovimentacao */
+         $ultimaMovimentacao = MovimentacaoEstoque::query()
+             ->where('produto_id', $produto->id)
+             ->where('tipo_movimentacao', $movimentacao)
+             ->orderByDesc('data_movimentacao')
+             ->first();
+
+         return $ultimaMovimentacao;
     }
 }

@@ -49,7 +49,7 @@ class ProdutoController extends ModelController
 
         $this->produtoRepository->create($this->modelProduto, $request->all());
 
-        return $this->listar();
+        return $this->listar($request);
     }
 
     /**
@@ -77,10 +77,9 @@ class ProdutoController extends ModelController
     }
 
     /**
-     * @param Request $request
      * @return mixed
      */
-    public function listar(Request $request)
+    public function listar()
     {
         $produtos = $this->produtoRepository->getProdutos();
         $nomeUsuario = app(Utils::class)->retornaNomeColaborador();
@@ -103,8 +102,31 @@ class ProdutoController extends ModelController
         return $this->listar();
     }
 
-    public function editar($id, $dados)
+    /**
+     * @param Request $request
+     * @return JsonResponse|mixed
+     */
+    public function editar(Request $request)
     {
-        // TODO: Implement editar() method.
+        $validator = $this->validateRequest($request);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $dados = $request->except('_token');
+
+        $this->produtoRepository->updateProduto($request['id'], $dados);
+
+        return $this->listar($request);
+    }
+
+    public function editarProduto($id)
+    {
+        /** @var Produto $produto */
+        $produto = $this->produtoRepository->buscaProduto($id);
+        $nomeUsuario = app(Utils::class)->retornaNomeColaborador();
+
+        return view('cadastroproduto', compact('produto', 'nomeUsuario'));
     }
 }

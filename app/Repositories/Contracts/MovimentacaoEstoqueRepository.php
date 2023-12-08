@@ -25,6 +25,12 @@ use App\Models\Produto;
       * @return mixed
       */
      public function buscaMovimentacoesProduto(Produto $produto, $movimentacao);
+
+     /**
+      * @param Produto $produto
+      * @return mixed
+      */
+     public function buscaUltimaMovimentacaoProduto(Produto $produto, $movimentacao);
  }
 
 

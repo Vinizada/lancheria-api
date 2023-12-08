@@ -26,7 +26,7 @@ abstract class ModelController extends Controller
     /**
      * @return mixed
      */
-    public abstract function listar(Request $request);
+    public abstract function listar();
 
     /**
      * @param $id
@@ -41,9 +41,8 @@ abstract class ModelController extends Controller
     public abstract function deletar($id);
 
     /**
-     * @param $id
-     * @param $dados
+     * @param Request $request
      * @return mixed
      */
-    public abstract function editar($id, $dados);
+    public abstract function editar(Request $request);
 }

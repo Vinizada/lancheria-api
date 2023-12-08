@@ -51,6 +51,10 @@ $router->get('produto/deletar/{produto_id}', [
 ])->name('produto.deletar');
 
 $router->get('produto/editar/{produto_id}', [
+    'uses' => 'ProdutoController@editarProduto'
+])->name('produto.editarProduto');
+
+$router->post('produto/editar', [
     'uses' => 'ProdutoController@editar'
 ])->name('produto.editar');
 
@@ -98,8 +102,8 @@ $router->post('cadastrarestoque', [
 ])->name('estoque.create');
 
 $router->get('estoque', [
-    'uses' => 'EstoqueController@listar'
-])->name('estoque.listar');
+    'uses' => 'EstoqueController@listarComprasProduto'
+])->name('estoque.listarComprasProduto');
 
 $router->get('estoque/{produto_id}', [
     'uses' => 'EstoqueController@buscar'

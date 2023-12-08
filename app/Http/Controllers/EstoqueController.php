@@ -96,7 +96,11 @@ class EstoqueController extends ModelController
         return Validator::make($request->all(), $regras, $feedback);
     }
 
-    public function listar(Request $request)
+    /**
+     * @param Request $request
+     * @return Application|Factory|View
+     */
+    public function listarComprasProduto(Request $request)
     {
         /** @var Produto $produto */
         $produto     = $this->produtoRepository->buscaProduto($request->input('id'));
@@ -116,8 +120,13 @@ class EstoqueController extends ModelController
         // TODO: Implement deletar() method.
     }
 
-    public function editar($id, $dados)
+    public function editar(Request $request)
     {
         // TODO: Implement editar() method.
+    }
+
+    public function listar()
+    {
+        // TODO: Implement listar() method.
     }
 }

@@ -23,7 +23,7 @@
                                             <span class="badge badge-secondary">Valor Atual do Estoque: R$ {{ $produto->valor_estoque_atual }}</span>
                                         </div>
                                         <div class="d-flex">
-                                            <a href="{{ route('produto.editar', ['produto_id' => $produto->id]) }}" class="btn btn-primary mr-2">
+                                            <a href="{{ route('produto.editarProduto', ['produto_id' => $produto->id]) }}" class="btn btn-primary mr-2">
                                                 <i class="fas fa-pencil-alt"></i>
                                             </a>
                                             <form action="{{ route('produto.deletar', ['produto_id' => $produto->id]) }}" method="POST">
@@ -35,15 +35,13 @@
                                             </form>
                                         </div>
                                     </div>
-                                    <div>
+                                    <div class="mb-1">
                                         <p class="text-success font-weight-bold mb-0">Preço de Venda: R$ {{ $produto->preco_venda }}</p>
                                         <p class="text-danger font-weight-bold mb-0">Preço de Custo:  {{ isset($produto->preco_custo) ? 'R$' . $produto->preco_custo : 'Cadastre uma compra!' }}</p>
-                                        <p class="mb-0">
-                                            <span class="text-info">Estoque Mínimo: {{ $produto->estoque_minimo }}</span>
-                                        </p>
+                                        <p class="text-success font-weight-bold mb-0">Custo Médio:  {{ isset($produto->preco_medio) ? 'R$' . $produto->preco_medio : 'Rotina não executada!' }}</p>
                                     </div>
                                     <div class="mt-2 text-center">
-                                        <a style="width:75%" href="{{ route('estoque.listar', ['id' => $produto->id]) }}" class="btn btn-info">
+                                        <a style="width:75%" href="{{ route('estoque.listarComprasProduto', ['id' => $produto->id]) }}" class="btn btn-info">
                                             <i class="fas fa-box"></i> Compras
                                         </a>
                                     </div>
