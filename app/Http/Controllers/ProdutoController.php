@@ -61,9 +61,7 @@ class ProdutoController extends ModelController
         $regras = [
             'nome'           => 'required|min:3|max:40',
             'preco_venda'    => 'required|numeric',
-            'preco_custo'    => 'required|numeric',
             'estoque_minimo' => 'numeric',
-            'ativo'          => 'required',
         ];
 
         $feedback = [
@@ -72,10 +70,7 @@ class ProdutoController extends ModelController
             'nome.max'             => 'O campo nome deve ter no máximo 40 caracteres!',
             'preco_venda.required' => 'O campo preço de venda é obrigatório!',
             'preco_venda.numeric'  => 'O campo preço de venda deve ser um valor numérico!',
-            'preco_custo.required' => 'O campo preço de custo é obrigatório!',
-            'preco_custo.numeric'  => 'O campo preço de custo deve ser um valor numérico!',
             'estoque_minimo'       => 'O campo de estoque precisa ser um número!',
-            'ativo.required'       => 'O campo ativo é obrigatório!',
         ];
 
         return Validator::make($request->all(), $regras, $feedback);
@@ -104,6 +99,7 @@ class ProdutoController extends ModelController
     public function deletar($id)
     {
         $this->produtoRepository->deletaProduto($id);
+        return $this->listar();
     }
 
     public function editar($id, $dados)

@@ -17,12 +17,14 @@ class CreateEstoqueTable extends Migration
             $table->unsignedBigInteger('produto_id')->unique();
             $table->integer('quantidade');
             $table->timestamp('data_validade')->nullable();
+            $table->decimal('valor_estoque_atual', 10, 2)->nullable();
+            $table->decimal('valor_custo_unitario', 10, 2);
             $table->timestamp('data_criacao');
             $table->timestamp('data_alteracao');
 
             $table->primary('produto_id');
 
-            $table->foreign('produto_id')->references('id')->on('produtos');
+            $table->foreign('produto_id')->references('id')->on('produtos')->onDelete('cascade');
         });
     }
 

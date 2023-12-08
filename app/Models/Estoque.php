@@ -11,6 +11,8 @@ use Carbon\Carbon;
  * @package App\Models
  * @property integer produto_id
  * @property integer quantidade
+ * @property float   valor_estoque_atual
+ * @property float   valor_custo_unitario
  * @property Carbon  data_validade
  * @property Carbon  data_criacao
  * @property Carbon  data_alteracao
@@ -31,6 +33,8 @@ class Estoque extends Model
         'produto_id',
         'quantidade',
         'data_validade',
+        'valor_custo_unitario',
+        'valor_estoque_atual',
     ];
 
     protected $dates = [

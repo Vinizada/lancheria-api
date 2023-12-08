@@ -50,6 +50,10 @@ $router->get('produto/deletar/{produto_id}', [
     'uses' => 'ProdutoController@deletar'
 ])->name('produto.deletar');
 
+$router->get('produto/editar/{produto_id}', [
+    'uses' => 'ProdutoController@editar'
+])->name('produto.editar');
+
 /** Rotas Fornecedor */
 $router->post('fornecedor', [
     'uses' => 'FornecedorController@create'

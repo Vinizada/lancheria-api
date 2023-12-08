@@ -44,9 +44,9 @@ class CoreProdutoRepository extends BaseRepositoryImpl implements ProdutoReposit
                              'produtos.fornecedor_id',
                              'produtos.estoque_minimo',
                              'produtos.ativo',
-                             'estoque.quantidade')
+                             'estoque.quantidade',
+                             'estoque.valor_estoque_atual')
             ->leftJoin('estoque', 'produtos.id', '=', 'estoque.produto_id')
-            ->where('produtos.ativo', 1)
             ->get();
 
     }

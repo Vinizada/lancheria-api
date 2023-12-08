@@ -49,11 +49,13 @@ class CoreEstoqueRepository extends BaseRepositoryImpl implements EstoqueReposit
         $modelMovimentacao   = app(MovimentacaoEstoque::class);
 
         $movimentacao = [
-            'produto_id' => $estoque['produto_id'],
-            'quantidade' => $estoque['quantidade'],
-            'data_movimentacao' => Carbon::now()->format('Y-m-d H:i:s'),
-            'colaborador_id'    => $colaborador->id,
-            'tipo_movimentacao' => $tipoMovimentacao,
+            'produto_id'         => $estoque['produto_id'],
+            'quantidade'         => $estoque['quantidade'],
+            'data_movimentacao'  => Carbon::now()->format('Y-m-d H:i:s'),
+            'colaborador_id'     => $colaborador->id,
+            'valor_total'        => $estoque['quantidade'] * $estoque['valor_custo_unitario'],
+            'valor_unitario'     => $estoque['valor_custo_unitario'],
+            'tipo_movimentacao'  => $tipoMovimentacao,
         ];
 
         $movimentacaoEstoque->create($modelMovimentacao, $movimentacao);

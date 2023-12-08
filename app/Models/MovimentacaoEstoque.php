@@ -16,6 +16,7 @@ use Carbon\Carbon;
  * @property integer colaborador_id
  * @property integer quantidade
  * @property float valor_total
+ * @property float valor_unitario
  * @property string tipo_movimentacao
  * @property Carbon data_movimentacao */
 class MovimentacaoEstoque extends Model
@@ -34,6 +35,7 @@ class MovimentacaoEstoque extends Model
         'cliente_id',
         'quantidade',
         'valor_total',
+        'valor_unitario',
         'tipo_movimentacao',
     ];
 

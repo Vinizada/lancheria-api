@@ -20,13 +20,13 @@ class CreateMovimentacaoEstoqueTable extends Migration
             $table->unsignedBigInteger('cliente_id')->nullable();
             $table->unsignedBigInteger('colaborador_id');
             $table->integer('quantidade');
-            $table->decimal('valor_total', 10, 2)->nullable();
+            $table->decimal('valor_total', 10, 2);
+            $table->decimal('valor_unitario', 10, 2);
             $table->timestamp('data_movimentacao');
             $table->string('tipo_movimentacao', 1);
 
             $table->foreign('cliente_id')->references('id')->on('clientes');
             $table->foreign('pedido_id')->references('id')->on('pedidos');
-            $table->foreign('produto_id')->references('id')->on('produtos');
             $table->foreign('colaborador_id')->references('id')->on('colaboradores');
         });
     }

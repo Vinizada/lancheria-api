@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Events\CadastroCompra;
 use App\Models\MovimentacaoEstoque;
 use App\Models\Produto;
 use App\Repositories\Contracts\EstoqueRepository;
@@ -37,15 +38,17 @@ class EstoqueService
             })->sum('quantidade');
 
             $estoqueAtual = $entradas - $saidas;
+            $valorAtual   = $estoqueAtual * $produto->preco_venda;
 
             $dadosAlterados = [
-                'quantidade' => $estoqueAtual,
+                'quantidade'          => $estoqueAtual,
+                'valor_estoque_atual' => $valorAtual,
             ];
 
             $this->estoqueRepository->updateEstoque($produto->id, $dadosAlterados);
 
         } catch (\Exception $exception) {
-            throw new Exception('Falha ao atualizar estoque!');
+            throw new Exception('Falha ao atualizar estoque!' . $exception->getMessage());
         }
     }
 

@@ -3,38 +3,42 @@
 @section('titulo', 'Produtos')
 
 @section('conteudo')
-    <h1>Cadastro de Produto</h1>
+    <div class="container mt-5">
+        <h2 class="text-center">Cadastro de Produto</h2>
 
-    <form method="POST" action="{{ route('produto.create') }}">
-        @csrf
+        <form method="POST" action="{{ route('produto.create') }}" class="mx-auto mt-4 p-4 border rounded">
+            @csrf
 
-        <div>
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" required>
-        </div>
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" required class="form-control">
+            </div>
 
-        <div>
-            <label for="preco_venda">Preço de Venda:</label>
-            <input type="text" id="preco_venda" name="preco_venda" required>
-        </div>
+            <div class="form-group">
+                <label for="estoque_minimo">Estoque Mínimo:</label>
+                <input type="text" id="estoque_minimo" name="estoque_minimo" required class="form-control">
+            </div>
 
-        <div>
-            <label for="preco_custo">Preço de Custo:</label>
-            <input type="text" id="preco_custo" name="preco_custo" required>
-        </div>
+            <div class="form-group">
+                <label for="preco_venda">Preço de Venda:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">R$</span>
+                    </div>
+                    <input type="text" id="preco_venda" name="preco_venda" required class="form-control" placeholder="0.00">
+                </div>
+            </div>
 
-        <div>
-            <label for="estoque_minimo">Estoque Mínimo:</label>
-            <input type="text" id="estoque_minimo" name="estoque_minimo" required>
-        </div>
-
-        <div>
-            <label for="ativo">Ativo (0 - Inativo, 1 - Ativo):</label>
-            <input type="number" id="ativo" name="ativo" min="0" max="1" required>
-        </div>
-
-        <div>
-            <button type="submit">Cadastrar Produto</button>
-        </div>
-    </form>
+            <div class="form-group text-center">
+                <div class="row">
+                    <div class="col-md-6">
+                        <a href="{{ route('produto.listar') }}" class="btn btn-danger btn-block">Voltar</a>
+                    </div>
+                    <div class="col-md-6 mb-2 mb-md-0">
+                        <button type="submit" class="btn btn-primary btn-block">Cadastrar Produto</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 @endsection

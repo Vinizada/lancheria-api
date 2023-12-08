@@ -9,7 +9,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class CadastroCOmpraJob implements ShouldQueue
+class CadastroCompraJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -20,7 +20,6 @@ class CadastroCOmpraJob implements ShouldQueue
      */
     public function __construct()
     {
-        //
     }
 
     /**
@@ -30,6 +29,6 @@ class CadastroCOmpraJob implements ShouldQueue
      */
     public function handle()
     {
-        //
+
     }
 }
