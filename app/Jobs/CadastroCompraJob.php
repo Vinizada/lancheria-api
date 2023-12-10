@@ -35,13 +35,13 @@ class CadastroCompraJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(EstoqueRepository $estoqueRepository,
-                                ProdutoRepository $produtoRepository,
+    public function __construct(EstoqueRepository             $estoqueRepository,
+                                ProdutoRepository             $produtoRepository,
                                 MovimentacaoEstoqueRepository $movimentacaoEstoqueRepository)
     {
-        $this->estoqueRepository             = $estoqueRepository;
+        $this->estoqueRepository = $estoqueRepository;
         $this->movimentacaoEstoqueRepository = $movimentacaoEstoqueRepository;
-        $this->produtoRepository             = $produtoRepository;
+        $this->produtoRepository = $produtoRepository;
     }
 
     /**
@@ -55,23 +55,38 @@ class CadastroCompraJob implements ShouldQueue
 
         /** @var Produto $produto */
         foreach ($this->produtos as $produto) {
-            $movimentacoesEntrada = $this->movimentacaoEstoqueRepository->buscaMovimentacoesProduto(
-                $produto,
-                TipoMovimentacao::ENTRADA);
-
-            /** @var MovimentacaoEstoque $ultimaMovimentacao */
-            $ultimaMovimentacao = $this->movimentacaoEstoqueRepository->buscaUltimaMovimentacaoProduto($produto, TipoMovimentacao::ENTRADA);
-
-            $quantidadeMovimentacoes = $movimentacoesEntrada->count();
-            $somaValorUnitario       = $movimentacoesEntrada->sum('valor_unitario');
-            $valorMedio              = $somaValorUnitario / $quantidadeMovimentacoes;
 
             $update = [
-                'preco_medio' => round($valorMedio,2),
-                'preco_custo' => $ultimaMovimentacao->valor_unitario,
+                'preco_medio' => $this->calculaValorMedio($produto),
+                'preco_custo' => $this->buscaUltimoValorCompra($produto),
             ];
 
             $this->produtoRepository->updateProduto($produto->id, $update);
         }
+    }
+
+    /**
+     * @param Produto $produto
+     * @return float
+     */
+    private function calculaValorMedio(Produto $produto): float
+    {
+        $movimentacoesEntrada = $this->movimentacaoEstoqueRepository->buscaMovimentacoesProduto(
+            $produto,
+            TipoMovimentacao::ENTRADA);
+        $quantidadeMovimentacoes = $movimentacoesEntrada->count();
+        $somaValorUnitario = $movimentacoesEntrada->sum('valor_unitario');
+        return round(($somaValorUnitario / $quantidadeMovimentacoes),2);
+    }
+
+    /**
+     * @param Produto $produto
+     * @return float
+     */
+    private function buscaUltimoValorCompra(Produto $produto): float
+    {
+        /** @var MovimentacaoEstoque $ultimaMovimentacao */
+        $ultimaMovimentacao = $this->movimentacaoEstoqueRepository->buscaUltimaMovimentacaoProduto($produto, TipoMovimentacao::ENTRADA);
+        return $ultimaMovimentacao->valor_unitario;
     }
 }

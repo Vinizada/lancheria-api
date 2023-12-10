@@ -46,6 +46,6 @@ class CadastroCompraListener
         CadastroCompraJob::dispatch(
             $this->estoqueRepository,
             $this->produtoRepository,
-            $this->movimentacaoEstoqueRepository)->delay(now()->addSeconds(15));
+            $this->movimentacaoEstoqueRepository)->delay(now()->addSeconds(10));
     }
 }
