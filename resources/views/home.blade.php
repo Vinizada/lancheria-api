@@ -3,6 +3,7 @@
 @section('titulo', 'Home')
 
 @section('conteudo')
+    <div id="elemento-home"></div>
     <div class="container-fluid mt-2">
         <div class="row justify-content-center mt-2">
             <div class="col-md-12 text-center">
@@ -42,7 +43,8 @@
                 <h3 class="font-weight-bold mb-1">Ações Rápidas</h3>
                 <br>
                 <a href="{{ route('produto.listar') }}" class="btn-verde btn-lg btn-block mb-2">Cadastro de Produtos</a>
-                <a href="{{ route('estoque.cadastro') }}" class="btn-verde btn-lg btn-block mb-2">Cadastrar Compra</a>
+                <a href="{{ route('estoque.cadastro') }}" id="link-compra" class="btn-verde btn-lg btn-block mb-2">Cadastrar Compra</a>
+                <a href="{{ route('estoque.cadastro') }}" id="link-venda" class="btn-verde btn-lg btn-block mb-2">Realizar Venda</a>
             </div>
         </div>
     </div>

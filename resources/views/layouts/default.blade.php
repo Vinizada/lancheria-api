@@ -11,6 +11,7 @@
 
 <body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+<script src="{{ asset('js/keyboardShortcuts.js') }}"></script>
 @include('layouts._partials.top')
 @yield('conteudo')
 </body>
