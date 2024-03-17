@@ -76,6 +76,10 @@ $router->get('fornecedor/deletar/{fornecedor_id}', [
 ])->name('fornecedor.deletar');
 
 /** Rotas Cliente */
+$router->get('cadastrocliente', [
+    'uses' => 'ClienteController@index'
+])->name('cliente.cadastro');
+
 $router->post('cliente', [
     'uses' => 'ClienteController@create'
 ])->name('cliente.create');
@@ -91,6 +95,10 @@ $router->get('cliente/{cliente_id}', [
 $router->get('cliente/deletar/{cliente_id}', [
     'uses' => 'ClienteController@deletar'
 ])->name('cliente.deletar');
+
+$router->post('cliente/editar', [
+    'uses' => 'ClienteController@editar'
+])->name('cliente.editar');
 
 /** Rotas Estoque */
 $router->get('cadastroestoque', [

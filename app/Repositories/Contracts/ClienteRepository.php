@@ -15,6 +15,11 @@ namespace App\Repositories\Contracts;
       * @return boolean
       */
      public function exists($model);
+
+     /**
+      * @return mixed
+      */
+     public function getClientes();
  }
 
 

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Utils;
-use App\Models\Colaborador;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
