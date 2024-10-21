@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Core;
 
+use App\Models\MetodoPagamento;
 use App\Repositories\Contracts\BaseRepositoryImpl;
 use App\Repositories\Contracts\MetodoPagamentoRepository;
 
@@ -24,5 +25,11 @@ class CoreMetodoPagamentoRepository extends BaseRepositoryImpl implements Metodo
     public function exists($model)
     {
         return $model->newQuery()->count();
+    }
+
+    public function getMetodos()
+    {
+        return MetodoPagamento::query()
+            ->get();
     }
 }

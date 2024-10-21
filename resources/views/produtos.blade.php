@@ -22,6 +22,7 @@
                                             <span class="badge badge-secondary">Estoque Atual: {{ $produto->quantidade }}</span>
                                             <span class="badge badge-secondary">Valor Atual do Estoque: R$ {{ $produto->valor_estoque_atual }}</span>
                                         </div>
+                                        <img src="{{ route('produto.imagem', ['produto_id' => $produto->id]) }}" alt="Imagem do Produto" class="img-thumbnail" style="width: 150px; height: 150px;">
                                         <div class="d-flex">
                                             <a href="{{ route('produto.editarProduto', ['produto_id' => $produto->id]) }}" class="btn btn-primary mr-2">
                                                 <i class="fas fa-pencil-alt"></i>

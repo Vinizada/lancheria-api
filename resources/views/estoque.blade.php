@@ -3,6 +3,7 @@
 @section('titulo', 'Produtos')
 
 @section('conteudo')
+    <script src="{{ asset('js/estoqueView.js') }}"></script>
     <div class="container mt-5">
         <h2 class="text-center">Cadastrar compra</h2>
 
@@ -11,12 +12,31 @@
 
             <div class="form-group">
                 <label for="item">Selecione um Item:</label>
-                <select id="item" name="produto_id" required {{ $produtoSelecionado ? 'readonly' : '' }}>
-                    <option value="" disabled {{ !$produtoSelecionado ? 'selected' : '' }}>Selecione um item</option>
+                <select id="item" name="produto_id" class="form-control" required>
+                    <option value="" disabled selected>Selecione um item</option>
                     @foreach($produtos as $produto)
-                        <option value="{{ $produto->id }}" {{ $produtoSelecionado == $produto->id ? 'selected' : '' }}>{{ $produto->nome }}</option>
+                        <option value="{{ $produto->id }}"
+                                data-nome="{{ $produto->nome }}"
+                                data-preco="{{ number_format($produto->preco_venda, 2, ',', '.') }}"
+                                data-codigo="{{ $produto->codigo }}"
+                                data-imagem="{{ $produto->imagem }}">
+                            {{ $produto->nome }}
+                        </option>
                     @endforeach
                 </select>
+            </div>
+
+            <div id="produto-selecionado-card" class="card card-produto mt-4" style="display: none;">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <img id="produto-selecionado-imagem" src="" alt="Imagem do Produto" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">
+                        <div class="ml-4">
+                            <h5 id="produto-selecionado-nome"></h5>
+                            <p><strong>Código:</strong> <span id="produto-selecionado-codigo"></span></p>
+                            <p><strong>Preço de Venda:</strong> R$ <span id="produto-selecionado-preco"></span></p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="form-group">
@@ -32,6 +52,11 @@
                     </div>
                     <input type="text" id="valor_custo_unitario" name="valor_custo_unitario" required class="form-control" placeholder="0,00">
                 </div>
+            </div>
+
+            <div class="form-group">
+                <label for="validade">Data de Validade:</label>
+                <input type="date" id="validade" name="validade" class="form-control" required>
             </div>
 
             <div class="form-group text-center">

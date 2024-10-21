@@ -44,8 +44,9 @@
                 <br>
                 <a href="{{ route('produto.listar') }}" class="btn-verde btn-lg btn-block mb-2">Cadastro de Produtos</a>
                 <a href="{{ route('estoque.cadastro') }}" id="link-compra" class="btn-verde btn-lg btn-block mb-2">Cadastrar Compra</a>
-                <a href="{{ route('estoque.cadastro') }}" id="link-venda" class="btn-verde btn-lg btn-block mb-2">Realizar Venda</a>
+                <a href="{{ route('pedido.cadastro') }}" id="link-venda" class="btn-verde btn-lg btn-block mb-2">Realizar Venda</a>
                 <a href="{{ route('cliente.cadastro') }}" id="link-cliente" class="btn-verde btn-lg btn-block mb-2">Cadastro de Clientes</a>
+                <a href="{{ route('fornecedor.cadastro') }}" id="link-fornecedor" class="btn-verde btn-lg btn-block mb-2">Cadastro de Fornecedores</a>
             </div>
         </div>
     </div>

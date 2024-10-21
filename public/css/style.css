@@ -74,3 +74,40 @@ button:hover {
     color: #fff;
     text-decoration: none;
 }
+
+.card {
+    border-radius: 10px;
+}
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+.card-text {
+    color: darkgreen;
+}
+.btn-sm {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.form-control {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+.w-25 {
+    width: 60px !important; /* Ajuste do tamanho do campo de quantidade */
+}
+
+.card-produto {
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.card-produto h5 {
+    font-weight: bold;
+}
+
+.card-produto p {
+    margin: 0;
+}

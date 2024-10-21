@@ -58,7 +58,15 @@ $router->post('produto/editar', [
     'uses' => 'ProdutoController@editar'
 ])->name('produto.editar');
 
+$router->get('produto/imagem/{produto_id}', [
+    'uses' => 'ProdutoController@imagem'
+])->name('produto.imagem');
+
 /** Rotas Fornecedor */
+$router->get('cadastrofornecedor', [
+    'uses' => 'FornecedorController@index'
+])->name('fornecedor.cadastro');
+
 $router->post('fornecedor', [
     'uses' => 'FornecedorController@create'
 ])->name('fornecedor.create');
@@ -123,6 +131,10 @@ $router->get('estoque/deletar/{produto_id}', [
 
 
 $router->post('pedido', [
-    'uses' => 'PedidoController@store'
-])->name('pedido.envia');
+    'uses' => 'PedidoController@create'
+])->name('pedido.create');
+
+$router->get('pedido', [
+    'uses' => 'PedidoController@index'
+])->name('pedido.cadastro');
 

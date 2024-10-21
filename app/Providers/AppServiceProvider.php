@@ -7,6 +7,7 @@ use App\Repositories\Contracts\ClienteRepository;
 use App\Repositories\Contracts\ColaboradorRepository;
 use App\Repositories\Contracts\EstoqueRepository;
 use App\Repositories\Contracts\FornecedorRepository;
+use App\Repositories\Contracts\LoteRepository;
 use App\Repositories\Contracts\MetodoPagamentoRepository;
 use App\Repositories\Contracts\MovimentacaoEstoqueRepository;
 use App\Repositories\Contracts\PedidoRepository;
@@ -18,6 +19,7 @@ use App\Repositories\Core\CoreClienteRepository;
 use App\Repositories\Core\CoreColaboradorRepository;
 use App\Repositories\Core\CoreEstoqueRepository;
 use App\Repositories\Core\CoreFornecedorRepository;
+use App\Repositories\Core\CoreLoteRepository;
 use App\Repositories\Core\CoreMetodoPagamentoRepository;
 use App\Repositories\Core\CoreMovimentacaoEstoqueRepository;
 use App\Repositories\Core\CorePedidoRepository;
@@ -46,6 +48,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(PedidoRepository::class, CorePedidoRepository::class);
         $this->app->bind(FornecedorRepository::class, CoreFornecedorRepository::class);
         $this->app->bind(MovimentacaoEstoqueRepository::class, CoreMovimentacaoEstoqueRepository::class);
+        $this->app->bind(LoteRepository::class, CoreLoteRepository::class);
     }
 
     /**

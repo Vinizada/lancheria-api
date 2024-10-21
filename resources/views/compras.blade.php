@@ -22,6 +22,7 @@
                             <th>Quantidade</th>
                             <th>Valor Unitário</th>
                             <th>Valor Total</th>
+                            <th>Data de Validade</th>
                             <th>Data da Movimentação</th>
                         </tr>
                         </thead>
@@ -31,6 +32,7 @@
                                 <td>{{ $compra->quantidade }}</td>
                                 <td>R$ {{ $compra->valor_unitario }}</td>
                                 <td>R$ {{ $compra->valor_total }}</td>
+                                <td>{{ \Carbon\Carbon::parse($compra->data_validade)->format('d/m/Y') }}</td>
                                 <td>{{ \Carbon\Carbon::parse($compra->data_movimentacao)->format('d/m/Y H:i') }}</td>
                             </tr>
                         @endforeach
@@ -40,7 +42,7 @@
 
                 <!-- Botão "Voltar" -->
                 <div class="text-center mt-4">
-                    <a href="{{ route('produto.listar') }}" class="btn btn-danger btn-block">Voltar</a>
+                    <a href="{{ route('app.home') }}" class="btn btn-danger btn-block">Voltar</a>
                 </div>
             </div>
         </div>

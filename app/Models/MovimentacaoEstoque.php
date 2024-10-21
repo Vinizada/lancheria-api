@@ -10,6 +10,7 @@ use Carbon\Carbon;
 /**
  * Class MovimentacaoEstoque
  * @package App\Models
+ * @property integer id
  * @property integer produto_id
  * @property integer pedido_id
  * @property integer cliente_id
@@ -24,6 +25,8 @@ class MovimentacaoEstoque extends Model
     use HasFactory;
 
     public $timestamps = false;
+
+    protected $primaryKey = 'id';
 
     protected $table = 'movimentacao_estoque';
 

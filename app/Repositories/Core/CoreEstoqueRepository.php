@@ -8,6 +8,7 @@ use App\Models\Estoque;
 use App\Models\MovimentacaoEstoque;
 use App\Repositories\Contracts\BaseRepositoryImpl;
 use App\Repositories\Contracts\EstoqueRepository;
+use App\Repositories\Contracts\LoteRepository;
 use App\Repositories\Contracts\MovimentacaoEstoqueRepository;
 use Carbon\Carbon;
 
@@ -59,7 +60,11 @@ class CoreEstoqueRepository extends BaseRepositoryImpl implements EstoqueReposit
             'tipo_movimentacao'  => $tipoMovimentacao,
         ];
 
-        $movimentacaoEstoque->create($modelMovimentacao, $movimentacao);
+        $movimentacao = $movimentacaoEstoque->create($modelMovimentacao, $movimentacao);
+
+        /** @var LoteRepository $controleLote */
+        $controleLote = app(LoteRepository::class);
+        $controleLote->controleLote($movimentacao, $estoque['validade']);
     }
 
     public function existeEstoque($estoque)

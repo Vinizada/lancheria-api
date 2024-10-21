@@ -88,9 +88,10 @@ class EstoqueController extends ModelController
 
         $feedback = [
             'produto_id.required'  => 'O produto é obrigatório!',
-            'produto_id.numeric'           => 'O campo deve ser numérico!',
-            'quantidade.required'           => 'O campo quantidade é obrigatório!',
-            'quantidade.numeric'     => 'O campo quantidade deve ser um valor numérico!',
+            'produto_id.numeric'   => 'O campo deve ser numérico!',
+            'quantidade.required'  => 'O campo quantidade é obrigatório!',
+            'quantidade.numeric'   => 'O campo quantidade deve ser um valor numérico!',
+            'validade.required'    => 'A data de validade é obrigatória!',
         ];
 
         return Validator::make($request->all(), $regras, $feedback);

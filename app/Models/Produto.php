@@ -39,11 +39,13 @@ class Produto extends Model
         'estoque_minimo',
         'giro_medio',
         'ativo',
+        'imagem',
     ];
 
     protected $dates = [
         'data_criacao',
         'data_alteracao',
+        'data_validade',
     ];
 
     public function fornecedor()

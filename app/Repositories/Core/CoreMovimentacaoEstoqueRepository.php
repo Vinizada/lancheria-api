@@ -41,7 +41,8 @@ class CoreMovimentacaoEstoqueRepository extends BaseRepositoryImpl implements Mo
     public function buscaMovimentacoesProduto(Produto $produto, $movimentacao)
     {
         return MovimentacaoEstoque::query()
-            ->where('produto_id', $produto->id)
+            ->join('lote', 'lote.movimentacao_id', '=', 'movimentacao_estoque.id')
+            ->where('movimentacao_estoque.produto_id', $produto->id)
             ->where('tipo_movimentacao', $movimentacao)
             ->get();
     }

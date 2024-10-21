@@ -10,7 +10,9 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ProdutoController extends ModelController
 {
@@ -47,7 +49,11 @@ class ProdutoController extends ModelController
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        $this->produtoRepository->create($this->modelProduto, $request->all());
+        $produto = $this->produtoRepository->create($this->modelProduto, $request->all());
+
+        $file = $request->file('imagem');
+        $filename = $produto->id . '.' . $file->getClientOriginalExtension();
+        $file->storeAs('produtos', $filename, 'public');
 
         return $this->listar($request);
     }
@@ -62,6 +68,7 @@ class ProdutoController extends ModelController
             'nome'           => 'required|min:3|max:40',
             'preco_venda'    => 'required|numeric',
             'estoque_minimo' => 'numeric',
+            'imagem'         => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
 
         $feedback = [
@@ -71,6 +78,7 @@ class ProdutoController extends ModelController
             'preco_venda.required' => 'O campo preço de venda é obrigatório!',
             'preco_venda.numeric'  => 'O campo preço de venda deve ser um valor numérico!',
             'estoque_minimo'       => 'O campo de estoque precisa ser um número!',
+            'imagem'               => 'Favor cadastrar uma imagem!',
         ];
 
         return Validator::make($request->all(), $regras, $feedback);
@@ -128,5 +136,24 @@ class ProdutoController extends ModelController
         $nomeUsuario = app(Utils::class)->retornaNomeColaborador();
 
         return view('cadastroproduto', compact('produto', 'nomeUsuario'));
+    }
+
+    /**
+     * @param $id
+     * @return JsonResponse|BinaryFileResponse
+     */
+    public function imagem($id)
+    {
+        $extensoes = ['jpg', 'jpeg', 'png', 'gif'];
+
+        foreach ($extensoes as $ext) {
+            $path = storage_path('app/public/produtos/' . $id . '.' . $ext);
+
+            if (file_exists($path)) {
+                return response()->file($path);
+            }
+        }
+
+        return response()->json(['message' => 'Imagem não encontrada'], 404);
     }
 }

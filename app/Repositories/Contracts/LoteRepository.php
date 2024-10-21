@@ -2,7 +2,9 @@
 
 namespace App\Repositories\Contracts;
 
- interface MetodoPagamentoRepository extends BaseRepository
+ use App\Models\MovimentacaoEstoque;
+
+ interface LoteRepository extends BaseRepository
  {
      /**
       * @param $model
@@ -17,9 +19,11 @@ namespace App\Repositories\Contracts;
      public function exists($model);
 
      /**
+      * @param MovimentacaoEstoque $movimentacaoEstoque
+      * @param $dataValidade
       * @return mixed
       */
-     public function getMetodos();
+     public function controleLote(MovimentacaoEstoque $movimentacaoEstoque, $dataValidade);
  }
 
 

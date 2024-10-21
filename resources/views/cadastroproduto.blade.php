@@ -6,7 +6,7 @@
     <div class="container mt-5">
         <h2 class="text-center">Cadastro de Produto</h2>
 
-        <form method="POST" action="{{ isset($produto) ? route('produto.editar', ['id' => $produto->id]) : route('produto.create') }}" class="mx-auto mt-4 p-4 border rounded">
+        <form method="POST" enctype="multipart/form-data" action="{{ isset($produto) ? route('produto.editar', ['id' => $produto->id]) : route('produto.create') }}" class="mx-auto mt-4 p-4 border rounded">
             @csrf
 
             <div class="form-group">
@@ -27,6 +27,11 @@
                     </div>
                     <input type="text" id="preco_venda" name="preco_venda" required class="form-control" placeholder="0.00" value="{{ isset($produto) ? $produto->preco_venda : '' }}">
                 </div>
+            </div>
+
+            <div class="form-group">
+                <label for="imagem">Imagem do Produto:</label>
+                <input type="file" id="imagem" name="imagem" class="form-control-file" accept="image/*">
             </div>
 
             <div class="form-group text-center">
