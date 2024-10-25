@@ -14,5 +14,6 @@
 <script src="{{ asset('js/keyboardShortcuts.js') }}"></script>
 @include('layouts._partials.top')
 @yield('conteudo')
+@stack('scripts')
 </body>
 </html>

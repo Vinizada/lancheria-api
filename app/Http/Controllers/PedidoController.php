@@ -77,4 +77,11 @@ class PedidoController extends ModelController
 
         return view('pedido', compact('produtos', 'nomeUsuario', 'clientes', 'metodosDePagamento'));
     }
+
+    public function buscarProdutos(Request $request)
+    {
+        $termo = $request->input('nome');
+        $produtos = $this->produtoRepository->getProdutosFiltrados($termo);
+        return response()->json($produtos);
+    }
 }

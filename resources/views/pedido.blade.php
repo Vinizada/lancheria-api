@@ -10,8 +10,8 @@
             @csrf
 
             <div class="form-group">
-                <label for="item">Selecione um Cliente:</label>
-                <select id="item" name="produto_id">
+                <label for="cliente">Selecione um Cliente:</label>
+                <select id="cliente" name="cliente_id">
                     <option value="">Selecione um Cliente</option>
                     @foreach($clientes as $cliente)
                         <option value="{{ $cliente->id }}">{{ $cliente->nome }}</option>
@@ -20,16 +20,19 @@
             </div>
 
             <div class="form-group">
-                <label for="item">Selecione a forma de pagamento:</label>
-                <select id="item" name="produto_id">
+                <label for="forma-pagamento">Selecione a forma de pagamento:</label>
+                <select id="forma-pagamento" name="forma_pagamento_id">
                     <option value="">Selecione a forma de pagamento</option>
                     @foreach($metodosDePagamento as $metodo)
                         <option value="{{ $metodo->id }}">{{ $metodo->metodo }}</option>
                     @endforeach
                 </select>
             </div>
-
             <div class="container">
+                <div class="form-group">
+                    <label for="buscar-produto">Buscar Produto:</label>
+                    <input type="text" id="buscar-produto" class="form-control" placeholder="Digite o nome do produto...">
+                </div>
                 <div class="row">
                     @foreach($produtos as $produto)
                         <div class="col-md-4">
@@ -38,17 +41,15 @@
                                     <h5 class="card-title">{{ $produto->nome }}</h5>
                                     <p class="card-text">Preço: R$ {{ number_format($produto->preco_venda, 2, ',', '.') }}</p>
                                     <p class="card-text">Estoque: {{ $produto->quantidade ?? 0 }}</p>
-
                                     <div class="d-flex justify-content-center align-items-center">
-                                        <button class="btn btn-danger btn-sm" id="decrementar-{{ $produto->id }}" type="button" onclick="decrementar({{ $produto->id }})" disabled>-</button>
+                                        <button class="btn btn-danger btn-sm" id="decrementar-{{ $produto->id }}" type="button" disabled>-</button>
                                         <input type="text" class="form-control text-center mx-2 w-25" id="quantidade-{{ $produto->id }}" value="0" readonly>
-                                        <button class="btn btn-success btn-sm" id="incrementar-{{ $produto->id }}" type="button" onclick="incrementar({{ $produto->id }})">+</button>
+                                        <button class="btn btn-success btn-sm" id="incrementar-{{ $produto->id }}" type="button">+</button>
                                     </div>
-
                                     <input type="hidden" name="produto_id[]" value="{{ $produto->id }}">
-
-                                    <!-- Passando o estoque via data attribute -->
                                     <input type="hidden" id="estoque-{{ $produto->id }}" value="{{ $produto->quantidade ?? 0 }}">
+                                    <input type="hidden" id="vende-sem-estoque-{{ $produto->id }}" value="{{ $produto->vende_sem_estoque ? 'true' : 'false' }}">
+                                    <input type="hidden" id="preco-{{ $produto->id }}" value="{{ $produto->preco_venda }}">
                                 </div>
                             </div>
                         </div>
@@ -69,3 +70,7 @@
         </form>
     </div>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/pedido.js') }}"></script>
+@endpush

@@ -39,6 +39,12 @@ namespace App\Repositories\Contracts;
       * @return mixed
       */
      public function updateProduto($produtoId, array $dadosAlterados);
+
+     /**
+      * @param $termo
+      * @return mixed
+      */
+     public function getProdutosFiltrados($termo);
  }
 
 

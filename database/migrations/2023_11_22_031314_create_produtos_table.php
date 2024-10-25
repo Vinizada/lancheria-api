@@ -23,6 +23,8 @@ class CreateProdutosTable extends Migration
             $table->integer('estoque_minimo')->nullable();
             $table->decimal('giro_medio', 10, 2)->nullable();
             $table->integer('ativo')->nullable();
+            $table->boolean('vende_sem_estoque')->default(false);
+            $table->integer('categoria_id');
             $table->timestamp('data_criacao');
             $table->timestamp('data_alteracao');
         });

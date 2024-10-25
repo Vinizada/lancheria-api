@@ -15,8 +15,25 @@
             </div>
 
             <div class="form-group">
+                <label for="vende_sem_estoque">Vende Sem Estoque:</label>
+                <input type="hidden" name="vende_sem_estoque" value="false">
+                <input type="checkbox" id="vende_sem_estoque" name="vende_sem_estoque" class="form-control" value="true"
+                    {{ isset($produto) && $produto->vende_sem_estoque ? 'checked' : '' }}>
+            </div>
+
+            <div class="form-group">
                 <label for="estoque_minimo">Estoque Mínimo:</label>
                 <input type="text" id="estoque_minimo" name="estoque_minimo" required class="form-control" value="{{ isset($produto) ? $produto->estoque_minimo : '' }}">
+            </div>
+
+            <div class="form-group">
+                <label for="item">Selecione uma categoria:</label>
+                <select id="item" name="categoria_id">
+                    <option value="">Selecione uma categoria</option>
+                    @foreach($categorias as $categoria)
+                        <option value="{{ $categoria->id }}">{{ $categoria->nome }}</option>
+                    @endforeach
+                </select>
             </div>
 
             <div class="form-group">

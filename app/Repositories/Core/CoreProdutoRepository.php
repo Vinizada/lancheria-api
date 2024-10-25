@@ -44,6 +44,7 @@ class CoreProdutoRepository extends BaseRepositoryImpl implements ProdutoReposit
                              'produtos.preco_medio',
                              'produtos.fornecedor_id',
                              'produtos.estoque_minimo',
+                             'produtos.vende_sem_estoque',
                              'produtos.ativo',
                              'estoque.quantidade',
                              'estoque.valor_estoque_atual')
@@ -74,5 +75,24 @@ class CoreProdutoRepository extends BaseRepositoryImpl implements ProdutoReposit
         return Produto::query()
             ->where('id', $produtoId)
             ->update($dadosAlterados);
+    }
+
+    public function getProdutosFiltrados($termo)
+    {
+        return Produto::query()
+            ->select('produtos.id',
+                'produtos.nome',
+                'produtos.preco_venda',
+                'produtos.preco_custo',
+                'produtos.preco_medio',
+                'produtos.fornecedor_id',
+                'produtos.estoque_minimo',
+                'produtos.vende_sem_estoque',
+                'produtos.ativo',
+                'estoque.quantidade',
+                'estoque.valor_estoque_atual')
+            ->leftJoin('estoque', 'produtos.id', '=', 'estoque.produto_id')
+            ->where('produtos.nome', 'ilike', '%' . $termo . '%')
+            ->get();
     }
 }

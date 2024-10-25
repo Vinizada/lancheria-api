@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\PerfilAcesso;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,5 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ColaboradorSeeder::class);
         $this->call(PerfilAcessosSeeder::class);
         $this->call(MetodoPagamentoSeeder::class);
+        $this->call(CategoriaSeeder::class);
     }
 }

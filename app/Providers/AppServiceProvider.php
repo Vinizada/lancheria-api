@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Repositories\Contracts\AcessoRepository;
+use App\Repositories\Contracts\CategoriaRepository;
 use App\Repositories\Contracts\ClienteRepository;
 use App\Repositories\Contracts\ColaboradorRepository;
 use App\Repositories\Contracts\EstoqueRepository;
@@ -15,6 +16,7 @@ use App\Repositories\Contracts\PerfilAcessosRepository;
 use App\Repositories\Contracts\PerfilRepository;
 use App\Repositories\Contracts\ProdutoRepository;
 use App\Repositories\Core\CoreAcessoRepository;
+use App\Repositories\Core\CoreCategoriaRepository;
 use App\Repositories\Core\CoreClienteRepository;
 use App\Repositories\Core\CoreColaboradorRepository;
 use App\Repositories\Core\CoreEstoqueRepository;
@@ -49,6 +51,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(FornecedorRepository::class, CoreFornecedorRepository::class);
         $this->app->bind(MovimentacaoEstoqueRepository::class, CoreMovimentacaoEstoqueRepository::class);
         $this->app->bind(LoteRepository::class, CoreLoteRepository::class);
+        $this->app->bind(CategoriaRepository::class, CoreCategoriaRepository::class);
     }
 
     /**

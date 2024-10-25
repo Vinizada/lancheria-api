@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Utils;
 use App\Models\Produto;
+use App\Repositories\Contracts\CategoriaRepository;
 use App\Repositories\Contracts\ProdutoRepository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -34,7 +35,8 @@ class ProdutoController extends ModelController
     public function index(Request $request)
     {
         $nomeUsuario = app(Utils::class)->retornaNomeColaborador();
-        return view('cadastroproduto', compact('nomeUsuario'));
+        $categorias = app(CategoriaRepository::class)->getCategorias();
+        return view('cadastroproduto', compact('nomeUsuario','categorias'));
     }
 
     /**

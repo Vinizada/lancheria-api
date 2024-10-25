@@ -17,6 +17,8 @@ use Carbon\Carbon;
  * @property integer estoque_minimo
  * @property float giro_medio
  * @property integer ativo
+ * @property integer categoria_id
+ * @property boolean vende_sem_estoque
  * @property Carbon data_criacao
  * @property Carbon data_atualizacao */
 class Produto extends Model
@@ -39,7 +41,8 @@ class Produto extends Model
         'estoque_minimo',
         'giro_medio',
         'ativo',
-        'imagem',
+        'categoria_id',
+        'vende_sem_estoque',
     ];
 
     protected $dates = [

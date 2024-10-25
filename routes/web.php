@@ -138,3 +138,7 @@ $router->get('pedido', [
     'uses' => 'PedidoController@index'
 ])->name('pedido.cadastro');
 
+$router->get('pedido/buscar-produtos', [
+    'uses' => 'PedidoController@buscarProdutos'
+])->name('pedido.buscarProdutos');
+
