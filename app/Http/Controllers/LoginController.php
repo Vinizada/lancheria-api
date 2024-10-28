@@ -8,10 +8,14 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
     /**
+     * Exibe a tela de login.
+     *
      * @param Request $request
      * @return Application|Factory|View
      */
@@ -19,48 +23,45 @@ class LoginController extends Controller
     {
         $erro = '';
 
-        if($request->get('erro') == 1) {
-            $erro = 'Usuário e ou senha não existe';
+        if ($request->get('erro') == 1) {
+            $erro = 'Usuário e/ou senha não existem.';
         }
 
-        if($request->get('erro') == 2) {
-            $erro = 'Necessário realizar login para ter acesso a página';
+        if ($request->get('erro') == 2) {
+            $erro = 'É necessário realizar login para acessar a página.';
         }
 
-        return view('site.login', ['titulo' => 'Login', 'erro' => $erro]);
+        return view('login', ['titulo' => 'Login', 'erro' => $erro]);
     }
 
     /**
+     * Realiza a autenticação do colaborador.
+     *
      * @param Request $request
      * @return RedirectResponse
      */
     public function autenticar(Request $request)
     {
         $regras = [
-            'usuario' => 'email',
-            'senha' => 'required'
+            'usuario' => 'required|email',
+            'senha' => 'required',
         ];
 
         $feedback = [
-            'usuario.email' => 'O campo usuário (e-mail) é obrigatório',
-            'senha.required' => 'O campo senha é obrigatório'
+            'usuario.required' => 'O campo usuário (e-mail) é obrigatório.',
+            'usuario.email' => 'O campo usuário deve ser um e-mail válido.',
+            'senha.required' => 'O campo senha é obrigatório.',
         ];
 
         $request->validate($regras, $feedback);
 
-        $email = $request->get('usuario');
-        $password = $request->get('senha');
-
         /** @var Colaborador $colaborador */
         $colaborador = Colaborador::query()
-            ->where('email', $email)
-            ->where('senha', $password)
+            ->where('email', $request->get('usuario'))
             ->first();
 
-        if(isset($colaborador->nome)) {
-
-            session(['colaborador' => $colaborador]);
-
+        if ($colaborador && Hash::check($request->get('senha'), $colaborador->getAuthPassword())) {
+            Auth::guard('colaborador')->login($colaborador);
             return redirect()->route('app.home');
         } else {
             return redirect()->route('site.login', ['erro' => 1]);
@@ -68,11 +69,13 @@ class LoginController extends Controller
     }
 
     /**
+     * Realiza o logout do colaborador autenticado.
+     *
      * @return RedirectResponse
      */
     public function sair()
     {
-        session()->forget('colaborador');
-        return redirect()->to('/');
+        Auth::logout();
+        return redirect()->route('site.login');
     }
 }

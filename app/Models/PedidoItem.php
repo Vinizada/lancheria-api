@@ -8,16 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class PedidoItem
  * @package App\Models
+ * @property integer id
  * @property integer pedido_id
  * @property integer produto_id
  * @property integer quantidade
  * @property float preco_unitario
- * @property float preco_total */ 
+ * @property float preco_total */
 class PedidoItem extends Model
 {
     use HasFactory;
 
     protected $table = 'pedido_itens';
+
+    protected $primaryKey = 'id';
+
+    public $timestamps = false;
 
     protected $fillable = [
         'pedido_id',

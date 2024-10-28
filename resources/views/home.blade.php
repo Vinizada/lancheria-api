@@ -44,10 +44,67 @@
                 <br>
                 <a href="{{ route('produto.listar') }}" class="btn-verde btn-lg btn-block mb-2">Cadastro de Produtos</a>
                 <a href="{{ route('estoque.cadastro') }}" id="link-compra" class="btn-verde btn-lg btn-block mb-2">Cadastrar Compra</a>
-                <a href="{{ route('pedido.cadastro') }}" id="link-venda" class="btn-verde btn-lg btn-block mb-2">Realizar Venda</a>
+                <button type="button" id="link-venda" class="btn-verde btn-lg btn-block mb-2" data-bs-toggle="modal" data-bs-target="#selecionarClienteModal">Realizar Venda</button>
                 <a href="{{ route('cliente.cadastro') }}" id="link-cliente" class="btn-verde btn-lg btn-block mb-2">Cadastro de Clientes</a>
                 <a href="{{ route('fornecedor.cadastro') }}" id="link-fornecedor" class="btn-verde btn-lg btn-block mb-2">Cadastro de Fornecedores</a>
             </div>
         </div>
     </div>
+
+    <!-- Modal de Seleção de Cliente -->
+    <div class="modal fade" id="selecionarClienteModal" tabindex="-1" role="dialog" aria-labelledby="selecionarClienteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="selecionarClienteModalLabel">Selecione um Cliente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">Fechar</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="buscar-cliente">Buscar Cliente:</label>
+                        <input type="text" id="buscar-cliente" class="form-control" placeholder="Digite o nome do cliente..." onkeyup="filtrarClientes()">
+                    </div>
+                    <div class="row mt-4" id="lista-clientes">
+                        @foreach($clientes as $cliente)
+                            <div class="col-md-12 cliente-item" data-nome="{{ strtolower($cliente->nome) }}">
+                                <div class="card mb-4 shadow-sm card-produto" onclick="redirecionarParaPedido({{ $cliente->id }})" style="cursor: pointer;">
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title">{{ $cliente->nome }}</h5>
+                                        <p class="card-text">Telefone: {{ $cliente->telefone ?? 'N/A' }}</p>
+                                        <p class="card-text">Email: {{ $cliente->email ?? 'N/A' }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
+
+@push('scripts')
+    <script>
+        function redirecionarParaPedido(clienteId) {
+            if (clienteId) {
+                window.location.href = `{{ url('pedido') }}/${clienteId}`;
+            } else {
+                alert('Por favor, selecione um cliente antes de continuar.');
+            }
+        }
+
+        function filtrarClientes() {
+            const input = document.getElementById('buscar-cliente').value.toLowerCase();
+            const clientes = document.querySelectorAll('.cliente-item');
+
+            clientes.forEach(cliente => {
+                const nome = cliente.getAttribute('data-nome');
+                if (nome.includes(input)) {
+                    cliente.style.display = '';
+                } else {
+                    cliente.style.display = 'none';
+                }
+            });
+        }
+    </script>
+@endpush

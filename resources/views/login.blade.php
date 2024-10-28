@@ -24,7 +24,7 @@
             <div class="col-md-4 bg-light d-flex align-items-center justify-content-center">
                 <div class="p-5 border rounded">
                     <h2 class="mb-4 text-center">Login</h2>
-                    <form action={{ route('site.login') }} method="post">
+                    <form action={{ route('site.autenticar') }} method="post">
                         @csrf
                         <div class="mb-3">
                             <label for="inputEmail" class="form-label">E-mail</label>

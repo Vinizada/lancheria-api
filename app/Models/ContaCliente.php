@@ -7,42 +7,38 @@ use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
 /**
- * Class MetodoPagamento
+ * Class Cliente
  * @package App\Models
  * @property integer id
- * @property string metodo
- * @property float limite_metodo
- * @property integer ativo
+ * @property integer cliente_id
+ * @property integer pedido_id
+ * @property float valor
+ * @property string tipo_operacao
+ * @property float valor_disponivel
  * @property Carbon data_criacao
  * @property Carbon data_atualizacao */
-class MetodoPagamento extends Model
+class ContaCliente extends Model
 {
     use HasFactory;
 
-    protected $table = 'metodos_pagamento';
-
-    protected $primaryKey = 'id';
+    protected $table = 'clientes';
 
     const CREATED_AT = 'data_criacao';
 
     const UPDATED_AT = 'data_alteracao';
 
+    protected $primaryKey = 'id';
+
     protected $fillable = [
-        'metodo',
-        'limite_metodo',
-        'ativo',
+        'cliente_id',
+        'pedido_id',
+        'valor',
+        'tipo_operacao',
+        'valor_disponivel',
     ];
 
     protected $dates = [
         'data_criacao',
         'data_alteracao',
     ];
-
-    /**
-     * @return bool
-     */
-    public function isContaCliente()
-    {
-        return $this->id == 1;
-    }
 }

@@ -20,6 +20,12 @@ namespace App\Repositories\Contracts;
       * @return mixed
       */
      public function getMetodos();
+
+     /**
+      * @param $id
+      * @return mixed
+      */
+     public function getMetodo($id);
  }
 
 

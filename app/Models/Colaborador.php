@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Carbon\Carbon;
 
 /**
@@ -16,15 +16,15 @@ use Carbon\Carbon;
  * @property string senha
  * @property integer ativo
  * @property Carbon data_criacao
- * @property Carbon data_atualizacao */
-class Colaborador extends Model
+ * @property Carbon data_atualizacao
+ */
+class Colaborador extends Authenticatable
 {
     use HasFactory;
 
     protected $table = 'colaboradores';
 
     const CREATED_AT = 'data_criacao';
-
     const UPDATED_AT = 'data_alteracao';
 
     protected $primaryKey = 'id';
@@ -42,10 +42,19 @@ class Colaborador extends Model
         'data_alteracao',
     ];
 
+    /**
+     * Retorna a senha para autenticação.
+     *
+     * @return string
+     */
+    public function getAuthPassword()
+    {
+        return $this->senha;
+    }
+
     public function perfil()
     {
-        return $this->belongsTo(Perfil::class, 'perfil_id')
-            ->where('ativo', 1);
+        return $this->belongsTo(Perfil::class, 'perfil_id')->where('ativo', 1);
     }
 
     public function acessos()

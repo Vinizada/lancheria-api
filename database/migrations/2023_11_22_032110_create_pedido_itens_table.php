@@ -14,6 +14,7 @@ class CreatePedidoItensTable extends Migration
     public function up()
     {
         Schema::create('pedido_itens', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('pedido_id');
             $table->unsignedBigInteger('produto_id');
             $table->integer('quantidade')->default(0);

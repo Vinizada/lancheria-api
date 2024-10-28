@@ -37,4 +37,15 @@ class CoreClienteRepository extends BaseRepositoryImpl implements ClienteReposit
         return Cliente::query()
             ->get();
     }
+
+    /**
+     * @param $id
+     * @return Builder[]|Collection|mixed
+     */
+    public function getCliente($id)
+    {
+        return Cliente::query()
+            ->where('id', $id)
+            ->first();
+    }
 }

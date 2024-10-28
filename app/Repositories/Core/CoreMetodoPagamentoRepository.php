@@ -5,6 +5,8 @@ namespace App\Repositories\Core;
 use App\Models\MetodoPagamento;
 use App\Repositories\Contracts\BaseRepositoryImpl;
 use App\Repositories\Contracts\MetodoPagamentoRepository;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class CoreMetodoPagamentoRepository extends BaseRepositoryImpl implements MetodoPagamentoRepository
 {
@@ -31,5 +33,16 @@ class CoreMetodoPagamentoRepository extends BaseRepositoryImpl implements Metodo
     {
         return MetodoPagamento::query()
             ->get();
+    }
+
+    /**
+     * @param $id
+     * @return Builder|Model|mixed|object|null
+     */
+    public function getMetodo($id)
+    {
+        return MetodoPagamento::query()
+            ->where('id', $id)
+            ->first();
     }
 }

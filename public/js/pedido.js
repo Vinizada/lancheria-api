@@ -1,95 +1,123 @@
 let carrinho = {}; // Armazena os produtos e suas quantidades no carrinho
 
 document.addEventListener('DOMContentLoaded', () => {
+    carregarProdutosIniciais();
+    configurarEventos();
+});
+
+function carregarProdutosIniciais() {
     const produtos = document.querySelectorAll('[id^="quantidade-"]');
-    produtos.forEach(function (produto) {
+    produtos.forEach(produto => {
         const produtoId = produto.id.split('-')[1];
         const estoque = parseInt(document.getElementById('estoque-' + produtoId).value) || 0;
         const vendeSemEstoque = document.getElementById('vende-sem-estoque-' + produtoId).value === 'true';
-        atualizarBotaoIncremento({ id: produtoId, estoque: estoque, vende_sem_estoque: vendeSemEstoque });
+        atualizarBotaoIncremento({ id: produtoId, estoque, vende_sem_estoque: vendeSemEstoque });
     });
-
-    // Atualizar valor total inicialmente
     atualizarValorTotal();
+    verificarHabilitacaoBotao();
+}
 
+function configurarEventos() {
     // Filtro de busca para os produtos
-    document.getElementById('buscar-produto').addEventListener('input', function() {
-        const termoBusca = this.value;
-
-        // Fazer uma requisição (AJAX) para buscar os produtos
-        fetch(`/pedido/buscar-produtos?nome=${encodeURIComponent(termoBusca)}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Erro na requisição');
-                }
-                return response.json();
-            })
-            .then(produtos => {
-                atualizarProdutosNaTela(produtos);
-            })
-            .catch(error => {
-                console.error('Erro ao buscar produtos:', error);
-            });
+    document.getElementById('buscar-produto').addEventListener('input', function () {
+        const termoBusca = this.value.trim();
+        buscarProdutos(termoBusca);
     });
 
     // Validação do método de pagamento
-    document.getElementById('forma-pagamento').addEventListener('change', function() {
-        const metodoPagamentoSelecionado = this.options[this.selectedIndex].text.toLowerCase();
-        const pagamentoContainer = document.getElementById('pagamento-container');
-        if (metodoPagamentoSelecionado.includes('dinheiro')) {
-            pagamentoContainer.style.display = 'block';
-        } else {
-            pagamentoContainer.style.display = 'none';
+    document.getElementById('forma-pagamento').addEventListener('change', function () {
+        habilitarProdutos();
+    });
+
+    // Evento para o botão de enviar pedido
+    document.getElementById('enviar-pedido').addEventListener('click', function (event) {
+        event.preventDefault();
+        const form = document.getElementById('form-pedido');
+        prepararFormularioParaEnvio(form);
+    });
+}
+
+function buscarProdutos(termoBusca) {
+    fetch(`/pedido/buscar-produtos?nome=${encodeURIComponent(termoBusca)}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro na requisição');
+            }
+            return response.json();
+        })
+        .then(produtos => {
+            atualizarProdutosNaTela(produtos);
+        })
+        .catch(error => {
+            console.error('Erro ao buscar produtos:', error);
+        });
+}
+
+function verificarHabilitacaoBotao() {
+    const pagamentoSelect = document.getElementById('forma-pagamento');
+    const enviarPedido = document.getElementById('enviar-pedido');
+
+    enviarPedido.disabled = !(pagamentoSelect.value !== "" && Object.keys(carrinho).length > 0);
+}
+
+function prepararFormularioParaEnvio(form) {
+    const produtosSelecionados = [];
+    for (const produtoId in carrinho) {
+        if (carrinho[produtoId] > 0) {
+            const quantidade = carrinho[produtoId];
+            const preco = parseFloat(document.getElementById(`preco-${produtoId}`).value);
+            const estoque = parseInt(document.getElementById(`estoque-${produtoId}`).value);
+
+            produtosSelecionados.push({
+                produto_id: produtoId, // Corrigido para 'produto_id'
+                quantidade: quantidade,
+                preco: preco,
+                estoque: estoque
+            });
         }
+    }
+
+    // Adiciona os produtos selecionados ao formulário como inputs hidden
+    form.querySelectorAll('.produto-selecionado').forEach(element => element.remove());
+    produtosSelecionados.forEach(produto => {
+        const inputQuantidade = document.createElement('input');
+        inputQuantidade.type = 'hidden';
+        inputQuantidade.name = `produtos[${produto.produto_id}][quantidade]`;
+        inputQuantidade.value = produto.quantidade;
+        inputQuantidade.classList.add('produto-selecionado');
+        form.appendChild(inputQuantidade);
+
+        const inputPreco = document.createElement('input');
+        inputPreco.type = 'hidden';
+        inputPreco.name = `produtos[${produto.produto_id}][preco]`;
+        inputPreco.value = produto.preco;
+        inputPreco.classList.add('produto-selecionado');
+        form.appendChild(inputPreco);
+
+        const inputEstoque = document.createElement('input');
+        inputEstoque.type = 'hidden';
+        inputEstoque.name = `produtos[${produto.produto_id}][estoque]`;
+        inputEstoque.value = produto.estoque;
+        inputEstoque.classList.add('produto-selecionado');
+        form.appendChild(inputEstoque);
     });
 
-    // Cria um elemento para mostrar o valor total na tela
-    const totalContainer = document.createElement('div');
-    totalContainer.id = 'valor-total';
-    totalContainer.className = 'text-center mt-4';
-    totalContainer.textContent = 'Valor Total: R$ 0.00';
-    document.querySelector('.container').appendChild(totalContainer);
+    // Atualiza o valor total no input hidden com o valor já exibido
+    const valorTotal = document.getElementById('valor-total').textContent.replace('R$ ', '').replace(',', '.').trim();
+    document.getElementById('valor-total-input').value = parseFloat(valorTotal);
 
-    // Adiciona a seção para pagamento em dinheiro
-    const pagamentoContainer = document.createElement('div');
-    pagamentoContainer.id = 'pagamento-container';
-    pagamentoContainer.className = 'mt-4';
-    pagamentoContainer.style.display = 'none';
-    pagamentoContainer.innerHTML = `
-        <div class="form-group">
-            <label for="valor-recebido">Valor Recebido:</label>
-            <input type="number" id="valor-recebido" class="form-control" placeholder="Digite o valor recebido...">
-        </div>
-        <div class="form-group">
-            <label for="troco">Troco:</label>
-            <input type="text" id="troco" class="form-control" readonly>
-        </div>
-    `;
-    document.querySelector('.container').appendChild(pagamentoContainer);
+    // Atualiza o ID do método de pagamento
+    document.getElementById('forma-pagamento-id').value = document.getElementById('forma-pagamento').value;
 
-    document.getElementById('valor-recebido').addEventListener('input', function() {
-        const valorRecebido = parseFloat(this.value) || 0;
-        const valorTotal = calcularValorTotal();
-        const trocoElement = document.getElementById('troco');
-        const troco = valorRecebido - valorTotal;
-        trocoElement.value = troco >= 0 ? `R$ ${troco.toFixed(2)}` : 'Valor insuficiente';
-    });
-});
+    form.submit();
+}
 
 function atualizarBotaoIncremento(produto) {
     const botaoIncrementar = document.querySelector(`#incrementar-${produto.id}`);
     const botaoDecrementar = document.querySelector(`#decrementar-${produto.id}`);
     const inputQuantidade = document.querySelector(`#quantidade-${produto.id}`);
 
-    // Log para mostrar o valor de vende_sem_estoque
-    console.log(`Produto ID ${produto.id} - vende_sem_estoque: ${produto.vende_sem_estoque}`);
-
-    // Força a atualização do botão de incremento no carregamento da página
-    if (produto.vende_sem_estoque) {
-        botaoIncrementar.disabled = false;
-    } else {
-        botaoIncrementar.disabled = produto.estoque <= 0;
-    }
+    botaoIncrementar.disabled = !produto.vende_sem_estoque && produto.estoque <= 0;
 
     let quantidadeAtual = carrinho[produto.id] || 0;
     inputQuantidade.value = quantidadeAtual;
@@ -123,73 +151,96 @@ function atualizarCarrinho(produtoId, quantidade) {
         delete carrinho[produtoId];
     }
     atualizarValorTotal();
+    verificarHabilitacaoBotao();
 }
 
 function atualizarValorTotal() {
     let total = 0;
-    console.log(carrinho);
     for (const produtoId in carrinho) {
         const quantidade = carrinho[produtoId];
         const precoElement = document.getElementById(`preco-${produtoId}`);
         if (precoElement) {
-            console.log('aqui');
             const preco = parseFloat(precoElement.value);
             total += quantidade * preco;
         }
     }
     const totalElement = document.getElementById('valor-total');
     if (totalElement) {
-        totalElement.textContent = `Valor Total: R$ ${total.toFixed(2)}`;
+        totalElement.textContent = `R$ ${total.toFixed(2)}`;
     }
+    return total;
 }
 
 function atualizarProdutosNaTela(produtos) {
-    const containerProdutos = document.querySelector('.container .row');
+    const containerProdutos = document.getElementById('produtos-container');
     containerProdutos.innerHTML = '';
 
     produtos.forEach(produto => {
+        const vendeSemEstoque = produto.vende_sem_estoque ? 'true' : 'false';
+
         const produtoHtml = `
-            <div class="col-md-4">
-                <div class="card mb-4 shadow-sm">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">${produto.nome}</h5>
-                        <p class="card-text">Preço: R$ ${produto.preco_venda}</p>
-                        <p class="card-text">Estoque: ${produto.quantidade ?? 0}</p>
-                        <div class="d-flex justify-content-center align-items-center">
+            <div class="col-12">
+                <div class="card mb-3 shadow-sm d-flex flex-row align-items-center" style="height: 120px;">
+                    <img src="/produto/imagem/${produto.id}" alt="Imagem do Produto" class="img-fluid" style="width: 120px; height: 100%; object-fit: cover;">
+                    <div class="card-body d-flex flex-row align-items-center" style="flex: 1;">
+                        <div class="info-produto d-flex flex-column justify-content-between mr-3">
+                            <h5 class="card-title">${produto.nome}</h5>
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-dollar-sign mr-1"></i>
+                                <span>${parseFloat(produto.preco_venda).toFixed(2)}</span>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-box mr-1"></i>
+                                <span>${produto.quantidade ?? 0}</span>
+                            </div>
+                        </div>
+                        <div class="ml-auto d-flex align-items-center">
                             <button class="btn btn-danger btn-sm" id="decrementar-${produto.id}" type="button">-</button>
                             <input type="text" class="form-control text-center mx-2 w-25" id="quantidade-${produto.id}" value="${carrinho[produto.id] || 0}" readonly>
                             <button class="btn btn-success btn-sm" id="incrementar-${produto.id}" type="button">+</button>
                         </div>
-                        <input type="hidden" name="produto_id[]" value="${produto.id}">
-                        <input type="hidden" id="estoque-${produto.id}" value="${produto.quantidade ?? 0}">
-                        <input type="hidden" id="vende-sem-estoque-${produto.id}" value="${produto.vende_sem_estoque}">
-                        <input type="hidden" id="preco-${produto.id}" value="${produto.preco_venda}">
                     </div>
+                    <input type="hidden" id="estoque-${produto.id}" value="${produto.quantidade ?? 0}">
+                    <input type="hidden" id="vende-sem-estoque-${produto.id}" value="${vendeSemEstoque}">
+                    <input type="hidden" id="preco-${produto.id}" value="${produto.preco_venda}">
                 </div>
             </div>
         `;
         containerProdutos.insertAdjacentHTML('beforeend', produtoHtml);
-        atualizarBotaoIncremento(produto);
+        atualizarBotaoIncremento({
+            id: produto.id,
+            estoque: produto.quantidade,
+            vende_sem_estoque: vendeSemEstoque === 'true'
+        });
     });
-    atualizarValorTotal(); // Atualizar valor total após renderizar os produtos
+
+    atualizarValorTotal();
+    verificarHabilitacaoBotao();
 }
 
-function calcularValorTotal() {
-    let total = 0;
-    document.querySelectorAll('[id^="quantidade-"]').forEach(input => {
-        const produtoId = input.id.split('-')[1];
-        const quantidade = parseInt(input.value);
-        const precoElement = document.getElementById(`preco-${produtoId}`);
-        if (precoElement) {
-            const preco = parseFloat(precoElement.value);
-            if (quantidade >= 0) {
-                total += quantidade * preco;
-            }
-        }
-    });
-    const totalElement = document.getElementById('valor-total');
-    if (totalElement) {
-        totalElement.textContent = `Valor Total: R$ ${total.toFixed(2)}`;
+function habilitarProdutos() {
+    const pagamentoSelect = document.getElementById('forma-pagamento');
+    const buscarProduto = document.getElementById('buscar-produto');
+    const enviarPedido = document.getElementById('enviar-pedido');
+
+    if (pagamentoSelect.value !== "") {
+        buscarProduto.disabled = false;
+        enviarPedido.disabled = false;
+        document.querySelectorAll('button[type="button"]').forEach(button => {
+            button.disabled = false;
+        });
+    } else {
+        desabilitarProdutos();
     }
-    return total;
+}
+
+function desabilitarProdutos() {
+    const buscarProduto = document.getElementById('buscar-produto');
+    const enviarPedido = document.getElementById('enviar-pedido');
+
+    buscarProduto.disabled = true;
+    enviarPedido.disabled = true;
+    document.querySelectorAll('button[type="button"]').forEach(button => {
+        button.disabled = true;
+    });
 }

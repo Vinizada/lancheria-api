@@ -54,13 +54,11 @@ class CoreMovimentacaoEstoqueRepository extends BaseRepositoryImpl implements Mo
      */
     public function buscaUltimaMovimentacaoProduto(Produto $produto, $movimentacao)
     {
-        /** @var MovimentacaoEstoque $ultimaMovimentacao */
-         $ultimaMovimentacao = MovimentacaoEstoque::query()
+         return MovimentacaoEstoque::query()
              ->where('produto_id', $produto->id)
              ->where('tipo_movimentacao', $movimentacao)
+             ->whereNotNull('valor_unitario')
              ->orderByDesc('data_movimentacao')
-             ->first();
-
-         return $ultimaMovimentacao;
+             ->value('valor_unitario');
     }
 }

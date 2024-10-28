@@ -18,15 +18,14 @@ use Carbon\Carbon;
  * @property integer quantidade_itens
  * @property integer cancelado
  * @property Carbon data
- * @property Carbon data_cancelamento */  
+ * @property Carbon data_cancelamento */
 
 class Pedido extends Model
 {
     use HasFactory;
 
     protected $table = 'pedidos';
-
-    const CREATED_AT = 'data';
+    public $timestamps = false;
 
     protected $primaryKey = 'id';
 
@@ -38,6 +37,7 @@ class Pedido extends Model
         'quantidade_itens',
         'colaborador_id',
         'cancelado',
+        'data',
     ];
 
     protected $dates = [
@@ -47,12 +47,12 @@ class Pedido extends Model
 
     public function itens()
     {
-        return $this->hasMany(ItemPedido::class, 'pedido_id');
+        return $this->hasMany(PedidoItem::class, 'pedido_id');
     }
 
     public function produtos()
     {
-        $pivotTable = app(ItemPedido::class)->getTable();
+        $pivotTable = app(PedidoItem::class)->getTable();
         return $this->belongsToMany(Produto::class, $pivotTable, 'pedido_id', 'produto_id')
             ->withPivot('quantidade');
     }

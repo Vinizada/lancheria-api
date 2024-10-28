@@ -74,9 +74,17 @@ class CadastroCompraJob implements ShouldQueue
         $movimentacoesEntrada = $this->movimentacaoEstoqueRepository->buscaMovimentacoesProduto(
             $produto,
             TipoMovimentacao::ENTRADA);
-        $quantidadeMovimentacoes = $movimentacoesEntrada->count();
-        $somaValorUnitario = $movimentacoesEntrada->sum('valor_unitario');
-        return round(($somaValorUnitario / $quantidadeMovimentacoes),2);
+
+        if ($movimentacoesEntrada->count() > 0) {
+            $quantidadeMovimentacoes = $movimentacoesEntrada->count();
+            $somaValorUnitario = 0;
+            foreach ($movimentacoesEntrada as $movimentacao) {
+                $somaValorUnitario = $movimentacao['valor_unitario'];
+            }
+            return round(($somaValorUnitario / $quantidadeMovimentacoes),2);
+        }
+
+        return 0;
     }
 
     /**
@@ -85,8 +93,6 @@ class CadastroCompraJob implements ShouldQueue
      */
     private function buscaUltimoValorCompra(Produto $produto): float
     {
-        /** @var MovimentacaoEstoque $ultimaMovimentacao */
-        $ultimaMovimentacao = $this->movimentacaoEstoqueRepository->buscaUltimaMovimentacaoProduto($produto, TipoMovimentacao::ENTRADA);
-        return $ultimaMovimentacao->valor_unitario;
+        return $this->movimentacaoEstoqueRepository->buscaUltimaMovimentacaoProduto($produto, TipoMovimentacao::ENTRADA) ?? 0;
     }
 }

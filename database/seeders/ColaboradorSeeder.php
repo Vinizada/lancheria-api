@@ -5,13 +5,10 @@ namespace Database\Seeders;
 use App\Models\Colaborador;
 use App\Repositories\Contracts\ColaboradorRepository;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class ColaboradorSeeder extends Seeder
 {
-
-    /**
-     * @var array[]
-     */
     private $colaboradores = [
         [
             'nome' => 'Administrador',
@@ -36,24 +33,13 @@ class ColaboradorSeeder extends Seeder
         ],
     ];
 
-    /** @var ColaboradorRepository */
     private $colaboradorRepository;
 
-
-    /**
-     * ColaboradorSeeder constructor.
-     * @param ColaboradorRepository $colaboradorRepository
-     */
     public function __construct(ColaboradorRepository $colaboradorRepository)
     {
         $this->colaboradorRepository = $colaboradorRepository;
     }
 
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         $model = app(Colaborador::class);
@@ -61,6 +47,7 @@ class ColaboradorSeeder extends Seeder
         if ($this->colaboradorRepository->exists($model)) return;
 
         foreach ($this->colaboradores as $data) {
+            $data['senha'] = Hash::make($data['senha']);
             $this->colaboradorRepository->create($model, $data);
         }
     }

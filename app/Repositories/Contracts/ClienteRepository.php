@@ -20,6 +20,12 @@ namespace App\Repositories\Contracts;
       * @return mixed
       */
      public function getClientes();
+
+     /**
+      * @param $id
+      * @return mixed
+      */
+     public function getCliente($id);
  }
 
 

@@ -2,14 +2,21 @@ html, body {
     height: 100%;
     margin: 0;
     font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 header {
     font-family: 'Roboto', sans-serif;
 }
 
-p, span {
-    color: #ffffff;
+h1, h2 {
+    text-align: center;
 }
 
 h1 {
@@ -22,20 +29,47 @@ h2 {
     font-size: 22px;
 }
 
-input, select, textarea, button {
-    width: 100%;
-    padding: 10px 15px;
-    margin: 10px 0px 10px 0px;
-    box-sizing: border-box;
-    border-radius: 3px;
-    background-color: transparent;
-    color: #333;
+.pedido-texto {
+    color: black !important;
 }
 
-button {
-    background-color: #7ab829;
-    cursor: pointer;
-    color: #fff;
+.input-group {
+    display: flex;
+    gap: 15px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.forma-pagamento, .total-pagamento {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 50px;
+}
+
+.input-forma-pagamento {
+    max-width: 300px;
+}
+
+.cliente-info, .btn-close {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 50px;
+}
+
+#buscar-produto {
+    width: 100%;
+    padding: 10px 15px;
+    box-sizing: border-box;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #7ab829;
+    outline: none;
+    box-shadow: 0 0 5px rgba(122, 184, 41, 0.5);
 }
 
 button:hover {
@@ -47,17 +81,7 @@ button:hover {
     opacity: 1;
 }
 
-:-ms-input-placeholder {
-    color: #333333;
-}
-
-::-ms-input-placeholder {
-    color: #333333;
-}
-
-.btn-verde {
-    width: 95%;
-    display: inline-block;
+.btn-verde, .btn-primary {
     padding: 10px 20px;
     color: #fff;
     background-color: #2ecc71;
@@ -66,48 +90,83 @@ button:hover {
     text-decoration: none;
     transition: background-color 0.3s ease;
     text-align: center;
-    line-height: 2;
 }
 
 .btn-verde:hover {
     background-color: #00ad47;
-    color: #fff;
-    text-decoration: none;
 }
 
 .card {
     border-radius: 10px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
 }
+
+.card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-produto {
+    background-color: #f8f9fa;
+    color: #333;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.card-produto:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
 .card-title {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     font-weight: bold;
 }
+
 .card-text {
     color: darkgreen;
 }
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.col-md-4 {
+    flex: 1;
+    max-width: calc(33.333% - 15px);
+    min-width: 300px;
+}
+
 .btn-sm {
     width: 40px;
     height: 40px;
     font-size: 1.2rem;
     font-weight: bold;
 }
+
 .form-control {
-    font-size: 1.25rem;
-    font-weight: bold;
+    font-size: 1.1rem;
+    font-weight: normal;
 }
+
 .w-25 {
-    width: 60px !important; /* Ajuste do tamanho do campo de quantidade */
+    width: 60px !important;
 }
 
-.card-produto {
-    background-color: #f8f9fa;
-    color: #333;
+#cliente-info {
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
 }
 
-.card-produto h5 {
-    font-weight: bold;
-}
-
-.card-produto p {
-    margin: 0;
+#produtos-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: space-between;
 }
