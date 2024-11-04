@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Models\Colaborador;
+use Illuminate\Support\Facades\Auth;
 
 class Utils
 {
@@ -12,7 +13,7 @@ class Utils
     public function retornaNomeColaborador()
     {
         /** @var Colaborador $colaborador */
-        $colaborador = session('colaborador');
+        $colaborador = Auth::guard('colaborador')->user();
         return $colaborador->nome;
     }
 }
