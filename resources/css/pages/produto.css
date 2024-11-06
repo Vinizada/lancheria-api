@@ -1,0 +1,114 @@
+.produtos-container {
+    padding: 20px;
+    max-width: 90%; /* Reduz as margens laterais */
+    margin: 0 auto; /* Centraliza a div no meio da tela */
+}
+
+.btn-cadastrar-produto {
+    background-color: #4B2E2B;
+    color: white;
+    font-size: 1.5rem;
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+    text-align: center;
+    padding: 15px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-cadastrar-produto:hover {
+    background-color: #5c3b39;
+}
+
+.produtos-lista-scroll {
+    max-height: calc(100vh - 350px); /* Ajusta a altura máxima para evitar o scroll leve */
+    overflow-y: auto;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.produtos-lista {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.produto-card {
+    flex: 1 1 calc(50% - 20px);
+    min-width: 300px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.produto-card-body {
+    padding: 15px;
+}
+
+.produto-imagem {
+    width: 100px;
+    height: 100px;
+    border-radius: 8px;
+    margin-right: 10px;
+}
+
+.produto-info {
+    flex: 1;
+}
+
+.produto-nome {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.produto-acoes {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-acao {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+}
+
+.produto-precos p {
+    margin: 5px 0;
+}
+
+.preco-venda {
+    color: green;
+    font-weight: bold;
+}
+
+.preco-custo {
+    color: red;
+    font-weight: bold;
+}
+
+.custo-medio {
+    color: green;
+    font-weight: bold;
+}
+
+.produto-compras a {
+    width: 100%;
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    display: inline-block;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.produto-compras a:hover {
+    background-color: #0056b3;
+}

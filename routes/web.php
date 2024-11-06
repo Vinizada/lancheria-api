@@ -24,7 +24,9 @@ Route::get('/', function () {
 
 // Rotas de autenticação, não protegidas pelo middleware
 $router->post('/login', 'LoginController@autenticar')->name('site.autenticar');
+$router->get('recuperarsenha', 'LoginController@recuperarSenha')->name('senha.recuperar');
 $router->get('/login/{erro?}', 'LoginController@index')->name('site.login');
+$router->get('/configuracoes', 'Configuracaocontroller@configuracoes')->name('app.configuracoes');
 $router->get('/sair', 'LoginController@sair')->name('app.sair');
 
 // Rotas protegidas pelo middleware de autenticação
