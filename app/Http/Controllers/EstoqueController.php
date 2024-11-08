@@ -17,7 +17,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class EstoqueController extends ModelController
+class EstoqueController
 {
 
     /** @var ProdutoRepository */
@@ -40,13 +40,13 @@ class EstoqueController extends ModelController
      * @param Request $request
      * @return Application|Factory|View|mixed
      */
-    public function index(Request $request)
+    public function index(Request $request, $origem)
     {
         $produtos = $this->produtoRepository->getProdutos();
         $nomeUsuario = app(Utils::class)->retornaNomeColaborador();
         $produtoSelecionado = $request->input('id');
 
-        return view('estoque', compact('produtos', 'produtoSelecionado', 'nomeUsuario'));
+        return view('estoque', compact('produtos', 'produtoSelecionado', 'nomeUsuario', 'origem'));
     }
 
     /**
@@ -56,8 +56,7 @@ class EstoqueController extends ModelController
      */
     public function create(Request $request)
     {
-        /** @var Colaborador $colaborador */
-        $colaborador = session('colaborador');
+        $colaborador = app(Utils::class)->retornaColaboradorLogado();
 
         $validator = $this->validateRequest($request);
 

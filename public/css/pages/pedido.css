@@ -1,81 +1,77 @@
-/* Estilo para a tela de cadastro de produtos */
-.container.mt-5 {
-    max-width: 800px;
-    margin: 0 auto;
+/* Ajuste do contêiner principal */
+.container {
+    max-width: 95%;
+    margin: auto;
+    padding-bottom: 10px;
 }
 
-#produto-list {
-    max-height: calc(100vh - 200px); /* Deixa espaço para o header e outros elementos */
-    overflow-y: auto;
-    padding: 20px;
+/* Cabeçalho da página */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #4A2C2A;
+    padding: 10px 20px;
+    color: #fff;
+    border-radius: 5px;
 }
 
-.product-card {
+/* Informações do cliente e logout */
+.cliente-info-header {
     display: flex;
     align-items: center;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #ffffff;
-    margin-bottom: 15px;
 }
 
-.product-card img {
-    width: 80px;
-    height: auto;
-    border-radius: 8px;
-    margin-right: 15px;
-}
-
-.product-details {
-    flex: 1;
-}
-
-.product-details h5 {
-    margin: 0;
-    font-size: 1.2rem;
-    color: #333;
-}
-
-.product-details .product-price,
-.product-details .product-stock {
-    font-size: 1rem;
-    color: #666;
-}
-
-.product-actions {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.product-actions .btn {
-    font-size: 0.9rem;
+.btn-sair {
+    background-color: #D9534F;
+    border: none;
     padding: 5px 10px;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 0.9em;
 }
 
-/* Estilo para o botão de cadastrar novo produto */
-.btn-new-product {
+/* Ajuste da forma de pagamento e valor total */
+.forma-pagamento {
     display: flex;
-    justify-content: center;
     align-items: center;
-    width: calc(200px * 2 + 15px); /* Ocupa o espaço de dois cards e o gap entre eles */
-    height: 100px;
-    background-color: #4B2E2B;
-    color: #ffffff;
-    font-size: 1.2rem;
-    border-radius: 8px;
-    text-align: center;
-    text-decoration: none;
+    gap: 15px;
 }
 
-.btn-new-product:hover {
-    background-color: #5c3b39;
+.forma-pagamento label {
+    font-weight: bold;
+    font-size: 0.85em; /* Fonte pequena */
 }
 
-/* Rolagem para a lista de produtos, mantendo a página sem scroll vertical */
-.scroll-container {
-    max-height: 100vh;
-    overflow-y: hidden;
+/* Ajuste da seção de produtos */
+.overflow-auto {
+    background-color: #fff;
+    border-radius: 10px;
+    border: 1px solid #1a202c; /* Borda pequena para organização */
+    max-height: calc(100vh - 450px); /* Reduzido para garantir que o botão seja visível */
+    overflow-y: auto;
+    padding: 10px;
+}
+
+/* Cartão de produto */
+.card {
+    border: 1px solid #d3d3d3; /* Borda pequena para as divs dos produtos */
+    border-radius: 10px;
+}
+
+/* Botão de enviar pedido */
+.form-group.mt-4 {
+    margin-top: 10px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    position: sticky;
+    bottom: 0;
+    border: 1px solid #d3d3d3; /* Borda pequena para a organização */
+}
+
+/* Estilo do botão Enviar Pedido */
+.btn-primary {
+    background-color: #5A3D3A;
+    border: none;
 }
 

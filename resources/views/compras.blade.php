@@ -2,19 +2,20 @@
 
 @section('titulo', 'Produtos')
 
+@push('styles')
+    <link rel="stylesheet" href="{{ mix('css/pages/compras.css') }}">
+@endpush
+
 @section('conteudo')
     <div class="container mt-4">
         <div class="row">
             <div class="col-md-10 offset-md-1">
-                <!-- Título -->
                 <h2 class="text-center mb-4">Compras do produto {{ $produto->nome }}</h2>
 
-                <!-- Botão "Cadastrar Compra" -->
                 <div class="text-center mb-3">
-                    <a href="{{ route('estoque.cadastro', ['id' => $produto->id]) }}" class="btn-verde mb-3 d-block mx-auto">Cadastrar Compra</a>
+                    <a href="{{ route('estoque.cadastro', ['origem' => 'produto']) }}" class="btn-verde mb-3 d-block mx-auto">Cadastrar Compra</a>
                 </div>
 
-                <!-- Tabela de compras -->
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
@@ -40,9 +41,8 @@
                     </table>
                 </div>
 
-                <!-- Botão "Voltar" -->
                 <div class="text-center mt-4">
-                    <a href="{{ route('app.home') }}" class="btn btn-danger btn-block">Voltar</a>
+                    <a href="{{ route('produto.listar') }}" class="btn btn-danger btn-block">Voltar</a>
                 </div>
             </div>
         </div>

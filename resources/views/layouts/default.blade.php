@@ -12,9 +12,7 @@
 
 <body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
-<div class="main-container">
-    @yield('conteudo')
-</div>
+@yield('conteudo')
 
 @stack('scripts')
 

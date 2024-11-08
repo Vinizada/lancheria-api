@@ -59,7 +59,7 @@ Route::middleware(['auth:colaborador'])->group(function () use ($router) {
     $router->post('cliente/editar', 'ClienteController@editar')->name('cliente.editar');
 
     /** Rotas Estoque */
-    $router->get('cadastroestoque', 'EstoqueController@index')->name('estoque.cadastro');
+    $router->get('cadastroestoque/{origem}', 'EstoqueController@index')->name('estoque.cadastro');
     $router->post('cadastrarestoque', 'EstoqueController@create')->name('estoque.create');
     $router->get('estoque', 'EstoqueController@listarComprasProduto')->name('estoque.listarComprasProduto');
     $router->get('estoque/{produto_id}', 'EstoqueController@buscar')->name('estoque.buscar');

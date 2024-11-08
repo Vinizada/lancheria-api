@@ -50,7 +50,7 @@
                     <a href="{{ route('produto.listar') }}" class="btn-custom mb-2">
                         <i class="fas fa-box"></i> Cadastro de Produtos
                     </a>
-                    <a href="{{ route('estoque.cadastro') }}" class="btn-custom mb-2">
+                    <a href="{{ route('estoque.cadastro', ['origem' => 'home']) }}" class="btn-custom mb-2">
                         <i class="fas fa-shopping-cart"></i> Cadastrar Compra
                     </a>
                     <button type="button" class="btn-custom mb-2" data-bs-toggle="modal" data-bs-target="#selecionarClienteModal">

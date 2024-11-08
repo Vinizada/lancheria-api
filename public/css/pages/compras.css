@@ -1,0 +1,50 @@
+/* Ajuste do contêiner principal */
+.container {
+    margin: auto;
+    padding-bottom: 20px;
+}
+
+/* Tabela de compras */
+.table-responsive {
+    margin: 15px 0; /* Margem pequena na lista */
+}
+
+/* Botão Cadastrar Compra */
+.btn-verde {
+    background-color: #4A2C2A; /* Cor do cabeçalho do sistema */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px; /* Botão com bordas arredondadas */
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+    text-align: center;
+}
+
+.btn-verde:hover {
+    background-color: #3b2321; /* Cor um pouco mais escura para hover */
+}
+
+/* Botão Voltar */
+.btn-danger {
+    background-color: #D9534F;
+    border: none;
+    border-radius: 5px; /* Botão com bordas arredondadas */
+    padding: 10px 20px;
+    font-weight: bold;
+}
+
+.btn-danger:hover {
+    background-color: #c9302c; /* Cor um pouco mais escura para hover */
+}
+
+/* Destaque para o nome do produto */
+h2.text-center.mb-4 {
+    color: #5A3D3A; /* Cor padrão para o título */
+    transition: color 0.3s ease;
+}
+
+h2.text-center.mb-4:hover {
+    color: #4A2C2A; /* Cor diferenciada quando o título é selecionado/hover */
+}
+
