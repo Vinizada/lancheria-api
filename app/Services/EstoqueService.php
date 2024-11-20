@@ -31,7 +31,6 @@ class EstoqueService
             $entradas = $this->buscaMovimentacoes($produto, TipoMovimentacao::ENTRADA);
             $saidas = $this->buscaMovimentacoes($produto, TipoMovimentacao::SAIDA);
 
-
             $estoqueAtual = $entradas->sum('quantidade') - $saidas->sum('quantidade');
             $valorAtual   = $estoqueAtual * $produto->preco_venda;
 

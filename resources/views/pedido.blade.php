@@ -8,7 +8,6 @@
 
 @section('conteudo')
     <div class="container mt-3" style="max-width: 1200px; height: 100vh; overflow: hidden;">
-        <!-- Cabeçalho -->
         <div class="header mb-3">
             <div class="cliente-info-header">
                 <a href="{{ route('app.home') }}" class="btn-sair mr-3">X</a>
@@ -17,37 +16,25 @@
                 @endif
             </div>
             <div class="forma-pagamento">
-                <div>
-                    <label for="forma-pagamento" class="text-light">Forma de Pagamento:</label>
-                    <select id="forma-pagamento" name="forma_pagamento_id" class="form-control" style="max-width: 200px;" onchange="habilitarProdutos()" {{ isset($clienteSelecionado) ? '' : 'disabled' }}>
-                        <option value="">Selecione</option>
-                        @foreach($metodosDePagamento as $metodo)
-                            <option value="{{ $metodo->id }}">{{ $metodo->metodo }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <h5 class="ml-3 text-light"><span>R$</span> <span id="valor-total">0,00</span></h5>
+                <h5 class="ml-3 text-light"><span id="valor-total">0,00</span></h5>
             </div>
         </div>
 
-        <!-- Título Centralizado -->
         <h4 class="text-center mb-4 font-weight-bold">Realizar Pedido</h4>
 
-        <!-- Formulário para Realizar Pedido -->
         <form method="POST" action="{{ route('pedido.create') }}" class="mt-2" id="form-pedido">
             @csrf
 
             <input type="hidden" name="cliente_id" value="{{ $clienteSelecionado->id ?? '' }}" id="cliente-id">
             <input type="hidden" name="forma_pagamento_id" id="forma-pagamento-id">
             <input type="hidden" name="valor_total" id="valor-total-input" value="0">
+            <input type="hidden" name="produtos" id="carrinho-input">
 
-            <!-- Campo de Busca de Produtos -->
             <div class="form-group">
                 <label for="buscar-produto" class="d-block text-center">Buscar Produto:</label>
                 <input type="text" id="buscar-produto" class="form-control mx-auto" placeholder="Digite o nome do produto..." style="max-width: 600px;">
             </div>
 
-            <!-- Lista de Produtos -->
             <div class="overflow-auto" id="produtos-container">
                 @foreach($produtos as $produto)
                     <div class="col-12 mb-2">
@@ -79,11 +66,30 @@
                 @endforeach
             </div>
 
-            <!-- Botão Enviar Pedido -->
             <div class="form-group mt-4">
                 <button type="submit" class="btn btn-primary btn-block" id="enviar-pedido" disabled>Enviar Pedido</button>
             </div>
         </form>
+    </div>
+
+    <!-- Modal de Sucesso -->
+    <div class="modal fade" id="modalSucesso" tabindex="-1" role="dialog" aria-labelledby="modalSucessoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalSucessoLabel">Sucesso</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    Pedido enviado com sucesso!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="redirectHome()">Ok</button>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 
@@ -96,5 +102,15 @@
             const infoDiv = document.getElementById('cliente-info');
             infoDiv.classList.toggle('d-none');
         }
+
+        function redirectHome() {
+            window.location.href = "{{ route('app.home') }}";
+        }
+
+        @if(session('success'))
+        $(document).ready(function() {
+            $('#modalSucesso').modal('show');
+        });
+        @endif
     </script>
 @endpush

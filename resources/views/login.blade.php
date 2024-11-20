@@ -10,8 +10,8 @@
     <div class="container-principal">
         <div class="left-section">
             <div class="content-wrapper text-center">
-                <img src="{{ asset('images/logo.png') }}" alt="Logo EasyCoffe" class="logo img-fluid mb-4">
-                <h1>EasyCoffe - Sistema de Gestão</h1>
+                <img src="{{ asset('logo branco.png') }}" alt="Logo EasyCoffe" class="logo img-fluid mb-4">
+                <h1>EasyCafe - Sistema de Gestão</h1>
                 <p>Esse projeto foi criado para facilitar a administração do negócio com inteligência de dados e gestão simplificada.</p>
             </div>
         </div>
@@ -36,7 +36,7 @@
                     </div>
 
                     <div class="mb-3 text-right">
-                        <a href="{{ route('senha.recuperar') }}" class="text-decoration-none">Esqueceu sua senha?</a>
+                        <a href="{{ route('password.request') }}" class="text-decoration-none">Esqueceu sua senha?</a>
                     </div>
 
                     <button type="submit" class="btn btn-primary btn-lg btn-block enter-button">Entrar</button>

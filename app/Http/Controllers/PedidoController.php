@@ -61,12 +61,15 @@ class PedidoController extends ModelController
     {
         /** @var Colaborador $colaborador */
         $colaborador    = auth()->user();
-        $produtos       = $this->produtoService->processaProdutos(collect($request->get('produtos')));
+        $produtos       = $this->produtoService->processaProdutos($request->get('produtos'));
         $cliente        = $this->clienteRepository->getCliente($request->get('cliente_id'));
         $formaPagamento = $this->metodoPagamentoRepository->getMetodo($request->get('forma_pagamento_id'));
         $valorTotal     = $request->get('valor_total');
 
         $this->pedidoService->storePedido($colaborador, $produtos, $cliente, $formaPagamento, $valorTotal);
+
+        return redirect()->route('pedido.cadastro', ['cliente_id' => $cliente->id])
+            ->with('success', 'Pedido enviado com sucesso!');
     }
 
     public function validateRequest(Request $request)
@@ -113,5 +116,11 @@ class PedidoController extends ModelController
         $termo = $request->input('nome');
         $produtos = $this->produtoRepository->getProdutosFiltrados($termo);
         return response()->json($produtos);
+    }
+
+    public function buscaFormasPagamento()
+    {
+        $formaPagamento = $this->metodoPagamentoRepository->getMetodos();
+        return response()->json($formaPagamento);
     }
 }

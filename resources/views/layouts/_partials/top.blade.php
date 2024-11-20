@@ -5,8 +5,7 @@
 <header class="header-top p-3">
     <div class="d-flex justify-content-between align-items-center">
         <a href="{{ route('app.home') }}" class="d-flex align-items-center text-decoration-none">
-            <img src="{{ asset('path/to/logo.png') }}" alt="EasyCoffe Logo" class="logo-easycoffe">
-            <h1 class="m-0 text-center text-white ms-2">EasyCoffe</h1>
+            <img src="{{ asset('logo branco.png') }}" alt="EasyCoffe Logo" class="logo-easycoffe">
         </a>
 
         <div class="d-flex align-items-center">

@@ -24,10 +24,13 @@ Route::get('/', function () {
 
 // Rotas de autenticação, não protegidas pelo middleware
 $router->post('/login', 'LoginController@autenticar')->name('site.autenticar');
-$router->get('recuperarsenha', 'LoginController@recuperarSenha')->name('senha.recuperar');
 $router->get('/login/{erro?}', 'LoginController@index')->name('site.login');
 $router->get('/configuracoes', 'Configuracaocontroller@configuracoes')->name('app.configuracoes');
 $router->get('/sair', 'LoginController@sair')->name('app.sair');
+$router->get('password/forgot', 'ForgotPasswordController@showLinkRequestForm')->name('password.request');
+$router->post('password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+$router->get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
+$router->post('password/reset', 'ResetPasswordController@reset')->name('password.update');
 
 // Rotas protegidas pelo middleware de autenticação
 Route::middleware(['auth:colaborador'])->group(function () use ($router) {
@@ -68,5 +71,6 @@ Route::middleware(['auth:colaborador'])->group(function () use ($router) {
     /** Rotas Pedido */
     $router->post('pedido', 'PedidoController@create')->name('pedido.create');
     $router->get('pedido/buscar-produtos', 'PedidoController@buscarProdutos')->name('pedido.buscarProdutos');
+    $router->get('pedido/buscar-pagamentos', 'PedidoController@buscaFormasPagamento')->name('pedido.buscaFormasPagamento');
     $router->get('pedido/{cliente_id}', 'PedidoController@index')->name('pedido.cadastro');
 });

@@ -4,18 +4,15 @@ namespace App\Services;
 
 use App\Constants\StatusPedido;
 use App\Constants\TipoMovimentacao;
-use App\Events\CadastroCompra;
 use App\Models\Cliente;
 use App\Models\Colaborador;
 use App\Models\MetodoPagamento;
+use App\Models\MovimentacaoEstoque;
 use App\Models\Pedido;
 use App\Models\PedidoItem;
-use App\Models\Produto;
-use App\Repositories\Contracts\EstoqueRepository;
 use App\Repositories\Contracts\MovimentacaoEstoqueRepository;
 use App\Repositories\Contracts\PedidoRepository;
 use Carbon\Carbon;
-use Exception;
 use Illuminate\Support\Collection;
 
 class PedidoService
@@ -24,18 +21,18 @@ class PedidoService
     /** @var MovimentacaoEstoqueRepository */
     private $movimentacaoEstoqueRepository;
 
-    /** @var EstoqueRepository */
-    private $estoqueRepository;
+    /** @var EstoqueService */
+    private $estoqueService;
 
     /** @var PedidoRepository */
     private $pedidoRepository;
 
 
     public function __construct(MovimentacaoEstoqueRepository $movimentacaoEstoqueRepository,
-                                EstoqueRepository $estoqueRepository,
-                                PedidoRepository $pedidoRepository)
+                                PedidoRepository $pedidoRepository,
+                                EstoqueService $estoqueService)
     {
-        $this->estoqueRepository             = $estoqueRepository;
+        $this->estoqueService                = $estoqueService;
         $this->movimentacaoEstoqueRepository = $movimentacaoEstoqueRepository;
         $this->pedidoRepository              = $pedidoRepository;
     }
@@ -54,8 +51,31 @@ class PedidoService
         $pedidoItens = $this->getPedidoItens($pedido, $produtos);
 
         foreach($pedidoItens as $pedidoItem) {
-            $itens = $this->pedidoRepository->create(App(PedidoItem::class), $pedidoItem);
+            /** @var PedidoItem $item */
+            $item = $this->pedidoRepository->create(app(PedidoItem::class), $pedidoItem);
+            $this->geraMovimentacaoEstoque($pedido, $item);
+            $this->estoqueService->atualizaEstoque($item->produto());
         }
+    }
+
+    /**
+     * @param Pedido $pedido
+     * @param PedidoItem $item
+     * @return void
+     */
+    private function geraMovimentacaoEstoque(Pedido $pedido, PedidoItem $item)
+    {
+        $this->movimentacaoEstoqueRepository->create(app(MovimentacaoEstoque::class), [
+            'produto_id'        => $item->produto_id,
+            'pedido_id'         => $pedido->id,
+            'cliente_id'        => $pedido->cliente_id,
+            'colaborador_id'    => $pedido->colaborador_id,
+            'quantidade'        => $item->quantidade,
+            'valor_total'       => $item->quantidade * $item->preco_unitario,
+            'valor_unitario'    => $item->preco_unitario,
+            'data_movimentacao' => Carbon::now(),
+            'tipo_movimentacao' => TipoMovimentacao::SAIDA
+        ]);
     }
 
     private function getPedidoCabecalho(Colaborador $colaborador,

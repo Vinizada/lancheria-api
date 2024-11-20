@@ -14,8 +14,8 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
-        'passwords' => 'users',
+        'guard' => 'web', // Guard padrão
+        'passwords' => 'users', // Configuração de senha padrão
     ],
 
     /*
@@ -27,10 +27,6 @@ return [
     | Of course, a great default configuration has been defined for you
     | here which uses session storage and the Eloquent user provider.
     |
-    | All authentication drivers have a user provider. This defines how the
-    | users are actually retrieved out of your database or other storage
-    | mechanisms used by this application to persist your user's data.
-    |
     | Supported: "session"
     |
     */
@@ -41,9 +37,9 @@ return [
             'provider' => 'users',
         ],
         'colaborador' => [
-            'driver' => 'session',
-            'provider' => 'colaboradores',
-        ]
+            'driver' => 'session', // Usa sessões
+            'provider' => 'colaboradores', // Define o provedor como "colaboradores"
+        ],
     ],
 
     /*
@@ -70,13 +66,8 @@ return [
         ],
         'colaboradores' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Colaborador::class,
-        ]
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+            'model' => App\Models\Colaborador::class, // Modelo Colaborador
+        ],
     ],
 
     /*
@@ -96,10 +87,16 @@ return [
 
     'passwords' => [
         'users' => [
-            'provider' => 'users',
-            'table' => 'password_resets',
-            'expire' => 60,
-            'throttle' => 60,
+            'provider' => 'users', // Configuração padrão para usuários
+            'table' => 'password_resets', // Tabela usada para reset
+            'expire' => 60, // Token expira em 60 minutos
+            'throttle' => 60, // Limite de tempo entre solicitações
+        ],
+        'colaboradores' => [
+            'provider' => 'colaboradores', // Usa o provedor "colaboradores"
+            'table' => 'password_resets', // Reutiliza a mesma tabela (opcional)
+            'expire' => 60, // Token expira em 60 minutos
+            'throttle' => 60, // Limite de tempo entre solicitações
         ],
     ],
 
@@ -114,6 +111,5 @@ return [
     |
     */
 
-    'password_timeout' => 10800,
-
+    'password_timeout' => 10800, // 3 horas
 ];

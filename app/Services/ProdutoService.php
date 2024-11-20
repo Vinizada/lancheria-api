@@ -18,17 +18,17 @@ class ProdutoService
 
     public function processaProdutos($produtos)
     {
-        $produtosProcessados = [];
+        $produtosProcessados = collect();
+        $produtos = json_decode($produtos);
 
-        $produtos->each(function ($produto, $produtoId) use (&$produtosProcessados) {
-            $produtosProcessados[] = [
+        foreach ($produtos as $produtoId => $produto) {
+            $produtosProcessados->push([
                 'produto_id' => $produtoId,
-                'quantidade' => $produto['quantidade'],
-                'preco' => $produto['preco'],
-                'estoque' => $produto['estoque'],
-            ];
-        });
+                'quantidade' => $produto->quantidade,
+                'preco' => $produto->preco,
+            ]);
+        }
 
-        return collect($produtosProcessados);
+        return $produtosProcessados;
     }
 }

@@ -37,8 +37,8 @@ class PedidoItem extends Model
         return $this->belongsTo(Pedido::class, 'pedido_id');
     }
 
-    public function produtos()
+    public function produto()
     {
-        return $this->hasMany(Produto::class, 'produto_id');
+        return $this->belongsTo(Produto::class, 'produto_id')->getResults();
     }
 }

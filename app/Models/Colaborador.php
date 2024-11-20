@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Carbon\Carbon;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * Class Colaborador
@@ -20,7 +21,7 @@ use Carbon\Carbon;
  */
 class Colaborador extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $table = 'colaboradores';
 
@@ -62,4 +63,6 @@ class Colaborador extends Authenticatable
         $pivotTable = app(PerfilAcesso::class)->getTable();
         return $this->belongsToMany(Perfil::class, $pivotTable, 'perfil_id', 'perfil_id');
     }
+
+
 }
