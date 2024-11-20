@@ -1,0 +1,81 @@
+/* Estilo para a tela de cadastro de produtos */
+.container.mt-5 {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#produto-list {
+    max-height: calc(100vh - 200px); /* Deixa espaço para o header e outros elementos */
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.product-card {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #ffffff;
+    margin-bottom: 15px;
+}
+
+.product-card img {
+    width: 80px;
+    height: auto;
+    border-radius: 8px;
+    margin-right: 15px;
+}
+
+.product-details {
+    flex: 1;
+}
+
+.product-details h5 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.product-details .product-price,
+.product-details .product-stock {
+    font-size: 1rem;
+    color: #666;
+}
+
+.product-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.product-actions .btn {
+    font-size: 0.9rem;
+    padding: 5px 10px;
+}
+
+/* Estilo para o botão de cadastrar novo produto */
+.btn-new-product {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: calc(200px * 2 + 15px); /* Ocupa o espaço de dois cards e o gap entre eles */
+    height: 100px;
+    background-color: #4B2E2B;
+    color: #ffffff;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn-new-product:hover {
+    background-color: #5c3b39;
+}
+
+/* Rolagem para a lista de produtos, mantendo a página sem scroll vertical */
+.scroll-container {
+    max-height: 100vh;
+    overflow-y: hidden;
+}
+

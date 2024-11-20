@@ -75,7 +75,11 @@ class LoginController extends Controller
      */
     public function sair()
     {
-        Auth::logout();
+        Auth::guard('colaborador')->logout();
+        session()->invalidate();
+        session()->regenerateToken();
+
         return redirect()->route('site.login');
     }
+
 }

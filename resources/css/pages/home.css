@@ -1,0 +1,23 @@
+.container-fluid {
+    padding: 20px;
+}
+
+.card-deck {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.card {
+    min-width: 200px;
+    flex: 1;
+    margin: 10px;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
