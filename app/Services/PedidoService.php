@@ -37,6 +37,19 @@ class PedidoService
         $this->pedidoRepository              = $pedidoRepository;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getPedidos()
+    {
+        return $this->pedidoRepository->getPedidos();
+    }
+
+    public function getPedidosFiltrados($filtros)
+    {
+        return $this->pedidoRepository->getPedidosFiltrados($filtros);
+    }
+
     public function storePedido(Colaborador $colaborador,
                                 Collection $produtos,
                                 Cliente $cliente,

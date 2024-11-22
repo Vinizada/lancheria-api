@@ -10,9 +10,6 @@
 
         <div class="d-flex align-items-center">
             <span class="welcome-text">Bem-vindo, {{ $nomeUsuario }}</span>
-            <a href="{{ route('app.configuracoes') }}" class="btn btn-light btn-icon mx-2">
-                <i class="fas fa-cog" aria-hidden="true"></i> Configurações
-            </a>
             <a href="{{ route('app.sair') }}" class="btn btn-light btn-icon">
                 <i class="fas fa-sign-out-alt" aria-hidden="true"></i> Sair
             </a>

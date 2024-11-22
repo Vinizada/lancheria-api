@@ -10,32 +10,40 @@
     <div id="elemento-home"></div>
     <div class="container-fluid mt-2">
         <div class="row justify-content-center mt-2">
-            <div class="col-md-12 text-center">
-                <h3 class="font-weight-bold mb-1">Indicadores</h3>
-                <br>
+            <div class="container">
+                <div class="text-center mb-4">
+                    <button id="btnAtualizarIndicadores" class="btn-custom mb-2">Atualizar Indicadores</button>
+                    <select id="periodoSelect" class="form-control d-inline-block" style="width: 200px;">
+                        <option value="mesAtual" selected>Mês Atual</option>
+                        <option value="30">Últimos 30 dias</option>
+                        <option value="60">Últimos 60 dias</option>
+                        <option value="90">Últimos 90 dias</option>
+                    </select>
+                </div>
+
                 <div class="card-deck" id="indicadores-container">
                     <div class="card shadow">
                         <div class="card-body text-center">
                             <h5 class="font-weight-bold" style="font-size: 20px;">Total de Vendas</h5>
-                            <h6 id="total-vendas" style="font-size: 18px;">R$ 500,00</h6>
+                            <h6 id="totalVendas" style="font-size: 18px;">R$ 0,00</h6>
                         </div>
                     </div>
                     <div class="card shadow">
                         <div class="card-body text-center">
                             <h5 class="font-weight-bold" style="font-size: 20px;">Lucro %</h5>
-                            <h6 id="lucro-percentual" style="font-size: 18px;">25%</h6>
+                            <h6 id="lucroPercentual" style="font-size: 18px;">0%</h6>
                         </div>
                     </div>
                     <div class="card shadow">
                         <div class="card-body text-center">
                             <h5 class="font-weight-bold" style="font-size: 20px;">Lucro R$</h5>
-                            <h6 id="lucro-valor" style="font-size: 18px;">R$ 150,00</h6>
+                            <h6 id="lucroReal" style="font-size: 18px;">R$ 0,00</h6>
                         </div>
                     </div>
                     <div class="card shadow">
                         <div class="card-body text-center">
                             <h5 class="font-weight-bold" style="font-size: 20px;">Pendente de pagamento</h5>
-                            <h6 id="pendente-pagamento" style="font-size: 18px;">R$ 200,00</h6>
+                            <h6 id="pendentePagamento" style="font-size: 18px;">R$ 0,00</h6>
                         </div>
                     </div>
                 </div>
@@ -56,6 +64,9 @@
                     <button type="button" class="btn-custom mb-2" data-bs-toggle="modal" data-bs-target="#selecionarClienteModal">
                         <i class="fas fa-dollar-sign"></i> Realizar Venda
                     </button>
+                    <a href="{{ route('pedidos.buscarPedidos') }}" class="btn-custom mb-2">
+                        <i class="fas fa-user"></i> Consultar Pedidos
+                    </a>
                     <a href="{{ route('cliente.cadastro') }}" class="btn-custom mb-2">
                         <i class="fas fa-user"></i> Cadastro de Clientes
                     </a>
@@ -101,19 +112,41 @@
 
 @push('scripts')
     <script>
-        function atualizarIndicadores() {
-            fetch('/home/indicadores')
-                .then(response => response.json())
+        function atualizarIndicadores(periodo = 'mesAtual') {
+            console.log(`Atualizando indicadores para o período: ${periodo}`);
+
+            fetch(`/indicadores/${periodo}`)
+                .then(response => {
+                    console.log(`Status da resposta: ${response.status}`);
+                    if (!response.ok) {
+                        throw new Error(`Erro ao buscar indicadores: ${response.statusText}`);
+                    }
+                    return response.json();
+                })
                 .then(data => {
-                    document.getElementById('total-vendas').innerText = `R$ ${data.total_vendas}`;
-                    document.getElementById('lucro-percentual').innerText = `${data.lucro_percentual}%`;
-                    document.getElementById('lucro-valor').innerText = `R$ ${data.lucro_valor}`;
-                    document.getElementById('pendente-pagamento').innerText = `R$ ${data.pendente_pagamento}`;
+                    console.log('Dados recebidos:', data);
+                    document.getElementById('totalVendas').innerText = `R$ ${data.totalVendas}`;
+                    document.getElementById('lucroPercentual').innerText = `${data.lucroPercentual}%`;
+                    document.getElementById('lucroReal').innerText = `R$ ${data.lucroReal}`;
+                    document.getElementById('pendentePagamento').innerText = `R$ ${data.pendentePagamento}`;
                 })
                 .catch(error => console.error('Erro ao atualizar indicadores:', error));
         }
 
-        setInterval(atualizarIndicadores, 30000);
+        setInterval(() => {
+            const periodo = document.getElementById('periodoSelect').value;
+            atualizarIndicadores(periodo);
+        }, 30000);
+
+        document.getElementById('btnAtualizarIndicadores').addEventListener('click', () => {
+            const periodo = document.getElementById('periodoSelect').value;
+            atualizarIndicadores(periodo);
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const periodo = document.getElementById('periodoSelect').value;
+            atualizarIndicadores(periodo);
+        });
 
         function redirecionarParaPedido(clienteId) {
             if (clienteId) {

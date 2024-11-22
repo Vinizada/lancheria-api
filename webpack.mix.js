@@ -10,4 +10,5 @@ mix.js('resources/js/app.js', 'public/js')
     .css('resources/css/pages/produto.css', 'public/css/pages')
     .css('resources/css/pages/pedido.css', 'public/css/pages')
     .css('resources/css/pages/compras.css', 'public/css/pages')
+    .css('resources/css/pages/pedidos.css', 'public/css/pages')
     .version();

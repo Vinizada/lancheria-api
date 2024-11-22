@@ -49,6 +49,7 @@ class CoreProdutoRepository extends BaseRepositoryImpl implements ProdutoReposit
                              'estoque.quantidade',
                              'estoque.valor_estoque_atual')
             ->leftJoin('estoque', 'produtos.id', '=', 'estoque.produto_id')
+            ->where('ativo', 1)
             ->get();
     }
 
@@ -67,7 +68,7 @@ class CoreProdutoRepository extends BaseRepositoryImpl implements ProdutoReposit
     {
         return Produto::query()
             ->where('id', $produtoId)
-            ->forceDelete();
+            ->update(['ativo' => 0]);
     }
 
     public function updateProduto($produtoId, array $dadosAlterados)

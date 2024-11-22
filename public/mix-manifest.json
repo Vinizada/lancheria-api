@@ -1,12 +1,13 @@
 {
-    "/js/app.js": "/js/app.js?id=aef6030b414be6a2c4b491d939d35c43",
+    "/js/app.js": "/js/app.js?id=62d3bb684c500be2cfbe1d202c0eb447",
     "/js/home.js": "/js/home.js?id=86fc79d8f619ba68f180216c2015553b",
-    "/js/pedido.js": "/js/pedido.js?id=637f21d4ed8dac4b993541ed862190d4",
+    "/js/pedido.js": "/js/pedido.js?id=6b85b647b6368fd9edc4f63ad7d8f7f1",
     "/css/pages/produto.css": "/css/pages/produto.css?id=d4dcb6845d178c9d708d92b243e82d05",
     "/css/pages/home.css": "/css/pages/home.css?id=ddad442d77029b154cb664a058bb2d7b",
     "/css/pages/top.css": "/css/pages/top.css?id=db62c56a32e7f5442c5e34e3fa57a0b4",
     "/css/pages/login.css": "/css/pages/login.css?id=30124b8ed1bd21de578d84e407011e83",
     "/css/style.css": "/css/style.css?id=3bed8f9b245da0e4993f0fed577dfa93",
+    "/css/pages/pedidos.css": "/css/pages/pedidos.css?id=4a1fbacdea994ff87514833130ebc243",
     "/css/pages/compras.css": "/css/pages/compras.css?id=db8e8fe2712d2ef4cef058fe02e199c7",
     "/css/pages/pedido.css": "/css/pages/pedido.css?id=dc9057ccd5478b6bb0d63b405bd6332b"
 }

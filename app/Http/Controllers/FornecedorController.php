@@ -40,7 +40,7 @@ class FornecedorController extends ModelController
         return app(HomeController::class)->index();
     }
 
-    public function listar()
+    public function listar(Request $request)
     {
         // TODO: Implement listar() method.
     }

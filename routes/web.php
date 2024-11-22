@@ -35,6 +35,7 @@ $router->post('password/reset', 'ResetPasswordController@reset')->name('password
 // Rotas protegidas pelo middleware de autenticação
 Route::middleware(['auth:colaborador'])->group(function () use ($router) {
     $router->get('/home', 'HomeController@index')->name('app.home');
+    $router->get('indicadores/{periodo}', 'IndicadoresController@getIndicadores')->name('app.indicadores');
 
     /** Rotas Produtos */
     $router->get('cadastroproduto', 'ProdutoController@index')->name('produto.cadastro');
@@ -73,4 +74,5 @@ Route::middleware(['auth:colaborador'])->group(function () use ($router) {
     $router->get('pedido/buscar-produtos', 'PedidoController@buscarProdutos')->name('pedido.buscarProdutos');
     $router->get('pedido/buscar-pagamentos', 'PedidoController@buscaFormasPagamento')->name('pedido.buscaFormasPagamento');
     $router->get('pedido/{cliente_id}', 'PedidoController@index')->name('pedido.cadastro');
+    $router->get('pedidos/consultar-pedidos', 'PedidoController@listar')->name('pedidos.buscarPedidos');
 });

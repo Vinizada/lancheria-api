@@ -89,7 +89,7 @@ class ProdutoController extends ModelController
     /**
      * @return mixed
      */
-    public function listar()
+    public function listar(Request $request = null)
     {
         $produtos = $this->produtoRepository->getProdutos();
         $nomeUsuario = app(Utils::class)->retornaNomeColaborador();
@@ -135,9 +135,10 @@ class ProdutoController extends ModelController
     {
         /** @var Produto $produto */
         $produto = $this->produtoRepository->buscaProduto($id);
+        $categorias = app(CategoriaRepository::class)->getCategorias();
         $nomeUsuario = app(Utils::class)->retornaNomeColaborador();
 
-        return view('cadastroproduto', compact('produto', 'nomeUsuario'));
+        return view('cadastroproduto', compact('produto', 'categorias', 'nomeUsuario'));
     }
 
     /**

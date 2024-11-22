@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Contracts;
 
- interface PedidoRepository extends BaseRepository
+ interface IndicadoresRepository extends BaseRepository
  {
      /**
       * @param $model
@@ -17,11 +17,10 @@ namespace App\Repositories\Contracts;
      public function exists($model);
 
      /**
-      * @return mixed
+      * @param $periodo
+      * @return array
       */
-     public function getPedidos();
-
-     public function getPedidosFiltrados($filtros);
+     public function getIndicadores($periodo): array;
  }
 
 

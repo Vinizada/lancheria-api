@@ -77,9 +77,23 @@ class PedidoController extends ModelController
         // TODO: Implement validateRequest() method.
     }
 
-    public function listar()
+    public function listar(Request $request)
     {
-        // TODO: Implement listar() method.
+        $clientes = $this->clienteRepository->getClientes();
+        $pedidos  = $this->pedidoService->getPedidos();
+        $nomeUsuario = app(Utils::class)->retornaNomeColaborador();
+
+        if ($request->input('pedido_id') || $request->input('cliente') || $request->input('data_inicio')) {
+            $filtros = [
+                'pedido_id'   => $request->input('pedido_id'),
+                'cliente_id'  => $request->input('cliente'),
+                'data_inicio' => $request->input('data_inicio'),
+            ];
+
+            $pedidos = $this->pedidoService->getPedidosFiltrados($filtros);
+        }
+
+        return view('pedidos', compact('nomeUsuario', 'clientes', 'pedidos'));
     }
 
     public function buscar($id)
