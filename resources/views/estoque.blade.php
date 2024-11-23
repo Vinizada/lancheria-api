@@ -29,7 +29,6 @@
             <div id="produto-selecionado-card" class="card card-produto mt-4" style="display: none;">
                 <div class="card-body">
                     <div class="d-flex">
-                        <img id="produto-selecionado-imagem" src="" alt="Imagem do Produto" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">
                         <div class="ml-4">
                             <h5 id="produto-selecionado-nome"></h5>
                             <p><strong>Código:</strong> <span id="produto-selecionado-codigo"></span></p>

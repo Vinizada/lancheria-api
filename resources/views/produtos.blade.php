@@ -12,7 +12,14 @@
             <div class="col-md-8">
                 <h2 class="text-center">Listagem de Produtos</h2>
                 <br>
-                <a href="{{ route('produto.cadastro') }}" class="btn-cadastrar-produto">Cadastrar Novo Produto</a>
+                <div class="row">
+                    <div class="col-md-6">
+                        <a href="{{ route('app.home') }}" class="btn btn-danger btn-block">Voltar</a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="{{ route('produto.cadastro') }}" class="btn-cadastrar-produto">Cadastrar Novo Produto</a>
+                    </div>
+                </div>
                 <br>
 
                 <div class="produtos-lista-scroll">
